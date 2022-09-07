@@ -1,0 +1,155 @@
+.project {
+    display: flex;
+    flex-direction: column;
+    padding: 0 18px;
+}
+
+.project__info-containers {
+    display: flex;
+    flex-direction: column;
+    margin: 60px 0 0 0;  
+}
+
+.project__container {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 56px 0 0 0;
+}
+
+.project__container:nth-last-child(2) {
+    margin: 0;
+}
+
+.project__header {
+    padding: 0;
+    margin: 0 0 16px 0;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.04em;
+    color: #000000;
+}
+
+.project__times-container {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    margin: 60px 0 70px 0;
+}
+
+.project__time-container {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    min-width: 100px;
+}
+
+.project__time-container:last-child {
+    width: 80%;
+}
+
+.project__done {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: center;
+    color: #000000;
+    padding: 11px 10px;
+    background: #2BE080;
+    margin: 0;
+}
+
+.project__todo {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: center;
+    color: #000000;
+    padding: 11px;
+    margin: 0;
+    background: #F2F2F2;
+}
+
+.project__time-desc {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: center;
+    color: #A0A0A0; 
+    margin: 10px 0 0 0; 
+}
+
+@media screen and (min-width: 767px) {
+    .project {
+        padding: 0 50px;
+    }
+
+    .project__info-containers {
+        display: flex;
+        flex-direction: row;
+        margin: 70px 0 0 0;  
+    }
+
+    .project__container {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        margin: 0 0 0 30px;
+    }
+
+    .project__header {
+        margin: 0 0 22px 0;
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .project__times-container {
+        margin: 93px 0 90px 0;
+    }
+
+    .project__time-container {
+        min-width: 140px;
+    }
+
+    .project__done {
+        font-size: 14px;
+        line-height: 17px;
+        padding: 9px;
+    }
+    
+    .project__todo {
+        font-size: 14px;
+        line-height: 17px;
+        padding: 9px;
+    }
+    
+    .project__time-desc {
+        font-size: 14px;
+        line-height: 17px;
+        margin: 14px 0 0 0; 
+    }
+}
+
+@media screen and (min-width: 1279px) {
+    .project {
+        margin: 0 auto;
+        padding: 0;
+        max-width: 1140px;
+    }
+
+    .project__container {
+        margin: 0 0 0 40px;
+    }
+
+    .project__times-container {
+        margin: 110px 0;
+    }
+
+    .project__time-container {
+        min-width: 228px;
+    }
+}

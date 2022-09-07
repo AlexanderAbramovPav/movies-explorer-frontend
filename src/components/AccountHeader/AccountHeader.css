@@ -1,0 +1,306 @@
+.account-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: auto;
+    padding: 0 14px;
+    margin: 18px 0 18px 0;
+}
+
+.account-header__full-navi {
+    display: none;
+}
+
+.account-header__navbar-container {
+    display: block;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.account-header__navbar {
+    display: block;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.account-header__overlay {
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    z-index: 0;
+    top: -18px;
+    left: -52px;
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .5);
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in;
+}
+
+.account-header__input {
+    position: absolute;
+    display: block;
+    height: 25px;
+    width: 35px;
+    top: 10px;
+    right: 14px;
+    z-index: 5;
+    opacity: 0;
+}
+
+.account-header__hamburger-lines {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    height: 22px;
+    width: 30px;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.account-header__line {
+    display: block;
+    height: 3px;
+    width: 100%;
+    border-radius: 10px;
+    background: black;
+}
+
+.account-header__line_first {
+    transform-origin: 0% 0%;
+    transition: transform 0.4s ease-in-out;
+}
+
+.account-header__line_second {
+    transition: transform 0.2s ease-in-out;
+}
+
+.account-header__line_third {
+    transform-origin: 0% 100%;
+    transition: transform 0.4s ease-in-out;
+}
+
+.account-header__burger-items {
+    position: absolute;
+    top: -18px;
+    left: -52px;
+    padding: 144px 0 0 0;
+    margin: 0;
+    background: #fff;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    transform: translate(100%, 0);
+    flex-direction: column;
+    transition: transform 0.5s ease-in-out;
+    z-index: 2;
+    list-style: none;
+    align-items: center;
+}
+
+.account-header__burger-items::before {
+    background-color: rgba(0, 0, 0, .3);
+}
+
+.account-header__burger-item {
+    display: block;
+    padding: 0;
+    margin: 0 0 24px 0;
+    align-items: center;
+}
+
+.account-header__burger-item:last-of-type {
+    position: absolute;
+    bottom: 166px;
+    align-content: center;
+}
+
+.account-header__burger-title {
+    padding: 0;
+    margin: 0;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000000;
+}
+
+.account-header__burger-link {
+    padding: 0 0 7px 0;
+    margin: 0;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000000;
+    transition: opacity 0.3s ease-in-out;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.account-header__burger-link:hover {
+    opacity: 0.6;
+}
+
+.account-header__burger-link_chosen {
+    border-bottom: 2px solid black;
+}
+
+.account-header__text {
+    display: inline-block; 
+    margin: 0;
+    padding: 8px 20px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+    color: #000000;
+    background: #F9F9F9;
+    border-radius: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.5s ease-in-out;
+}
+
+.account-header__text:hover {
+    opacity: 0.6;
+}
+
+.account-header__input:checked ~ .account-header__burger-items {
+    transform: translateX(0);
+}
+
+.account-header__input:checked ~ .account-header__hamburger-lines .account-header__line_first {
+    transform: rotate(42deg);
+}
+
+.account-header__input:checked ~ .account-header__hamburger-lines .account-header__line_second {
+    transform: scaleY(0);
+}
+
+.account-header__input:checked ~ .account-header__hamburger-lines .account-header__line_third {
+    transform: rotate(-42deg);
+}
+
+.account-header__input:checked ~ .account-header__overlay {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
+@media screen and (min-width: 767px) {
+    .account-header {
+        padding: 0 30px;
+    }
+
+    .account-header__overlay {
+        left: -72px;
+    }
+
+    .account-header__burger-items {
+        width: 70vw;
+        transform: translate(130%, 0);
+        left: 5%;
+        padding: 159px 0 0 0;
+    }
+
+    .account-header__input:checked ~ .account-header__burger-items {
+        transform: translateX(30%);
+    }
+
+    .account-header__input {
+        top: 10px;
+        right: 0px;
+    }
+    
+    .account-header__hamburger-lines {
+        top: 10px;
+        right: 0px;
+        height: 22px;
+        width: 30px;
+    }
+
+    .account-header__burger-item:last-of-type {
+        bottom: 240px;
+    }
+}
+
+@media screen and (min-width: 1279px) {
+    .account-header {
+        justify-content: left;
+        padding: 0 70px;
+        display: flex;
+    }
+
+    .account-header__hamburger-lines {
+        display: none;
+    }
+
+    .account-header__input {
+        display: none;
+    }
+
+    .account-header__navbar-container {
+        display: none;
+    }
+
+    .account-header__full-navi {
+        display: flex;
+        flex-direction: row;
+        margin: 0 0 0 44px;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .account-header__movies-btn {
+        padding: 0;
+        margin: 0 16px 0 0;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 18px;
+        color: #000000;
+        text-decoration: none;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .account-header__movies-btn:hover {
+        opacity: 0.6;
+    }
+    
+    .account-header__saved-movies-btn{
+        padding: 0;
+        margin: 0;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 18px;
+        color: #000000;
+        text-decoration: none;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .account-header__saved-movies-btn:hover {
+        opacity: 0.6;
+    }
+
+}

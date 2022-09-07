@@ -1,0 +1,117 @@
+.portfolio {
+    display: flex;
+    flex-direction: column;
+    padding: 0 14px;
+}
+
+.portfolio__title {
+    padding: 0;
+    margin: 0 0 40px 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #A0A0A0;
+}
+
+.portfolio__site-list {
+    padding: 0;
+    margin: 0 0 50px 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.portfolio__site-item {
+    padding: 20px 0 19px 0;
+    margin: 0;
+    border-bottom: 1px solid #E6E6E6;   
+}
+
+.portfolio__site-link {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    transition: 0.3s ease-in-out opacity;
+    text-decoration: none;
+}
+
+.portfolio__site-link:hover {
+    opacity: 0.6;
+}
+
+.portfolio__site-item:first-child {
+    padding: 0 0 19px 0;
+}
+
+.portfolio__site-item:last-child {
+    border-bottom: none;
+}
+
+.portfolio__site-name {
+    padding: 0;
+    margin: 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: -0.04em;
+    color: #000000;
+}
+
+.portfolio__site-icon {
+    width: 11px;
+    height: 24px;
+}
+
+@media screen and (min-width: 767px) {
+    .portfolio {
+        display: flex;
+        flex-direction: column;
+        padding: 0 50px;
+    }
+
+    .portfolio__title {
+        margin: 0 0 50px 0;
+        font-size: 18px;
+        line-height: 20px;
+    }
+
+    .portfolio__site-list {
+        margin: 0 0 70px 0;
+    }
+
+    .portfolio__site-item {
+        padding: 20px 0 19px 0; 
+    }
+
+    .portfolio__site-name {
+        font-size: 28px;
+        line-height: 50px;
+    }
+    
+    .portfolio__site-icon {
+        width: 20px;
+        height: 50px;
+    }
+}
+
+@media screen and (min-width: 1279px) {
+    .portfolio {
+        margin: 0 auto;
+        padding: 0 70px;
+        max-width: 1140px;
+    }
+
+    .portfolio__site-list {
+        margin: 0 0 105px 0;
+    }
+
+    .portfolio__site-name {
+        font-size: 30px;
+        line-height: 50px;
+    }
+
+}

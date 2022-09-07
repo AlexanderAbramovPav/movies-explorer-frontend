@@ -1,0 +1,38 @@
+.more-loader {
+    padding: 50px 40px 80px 40px;
+    margin: 0;
+}
+
+.more-loader__btn{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    min-height: 36px;
+    background: transparent;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+    color: #000000;
+    border: 1px solid #E8E8E8;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out; 
+}
+
+.more-loader__btn:hover {
+    opacity: 0.6;
+}
+
+@media screen and (min-width: 767px) {
+    .more-loader {
+        padding: 50px 224px 80px 224px;
+    }
+}
+
+@media screen and (min-width: 1279px) {
+    .more-loader {
+        padding: 50px 480px 80px 480px;
+        max-width: 1280px;
+    }
+}

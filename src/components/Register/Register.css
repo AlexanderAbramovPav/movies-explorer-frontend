@@ -1,0 +1,29 @@
+.register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 30px;
+    margin: 56px 0 0 0;
+}
+
+.register__form-container {
+    display: flex;
+    flex-direction: column; 
+    width: 100%;
+    position: relative;
+}
+
+@media screen and (min-width: 767px) {
+    .register {
+        align-items: flex-start;
+        padding: 0 186px;
+        margin: 232px 0 0 0;
+    }
+}
+
+@media screen and (min-width: 1279px) {
+    .register {
+        max-width: 396px;
+        margin: 70px auto 0 auto;
+    }
+}

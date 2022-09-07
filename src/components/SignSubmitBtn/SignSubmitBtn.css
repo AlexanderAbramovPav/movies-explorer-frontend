@@ -1,0 +1,30 @@
+.sign-submit-btn {
+    background: #FF6838;
+    border-radius: 3px;
+    border: none;
+    padding: 15px 0;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+    color: #FFFFFF;
+    width: 100%;
+    position: absolute;
+    top: 468px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.sign-submit-btn:hover {
+    opacity: 0.6;
+}
+
+@media screen and (min-width: 767px) {
+    .sign-submit-btn {
+        padding: 13px 0 15px 0;
+        font-size: 14px;
+        line-height: 17px;
+        top: 335px;
+    }
+}

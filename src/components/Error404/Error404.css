@@ -1,0 +1,76 @@
+.errorNotFound {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+}
+
+.errorNotFound__number {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 80px;
+    line-height: 97px; 
+    color: #000000;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.errorNotFound__error-desc {
+    margin: 10px auto 0 auto;
+    padding: 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #000000;  
+}
+.errorNotFound__back-btn {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    padding: 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #FF6838;
+    background-color: transparent;
+    border: none;
+    transition: 0.3s ease-in-out opacity;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.errorNotFound__back-btn:hover {
+    opacity: 0.6;
+}
+
+@media screen and (min-width: 767px) {
+    .errorNotFound__number {
+        font-size: 140px;
+        line-height: 169px;
+    }
+
+    .errorNotFound__error-desc {
+        font-size: 16px;
+        line-height: 19px;
+        margin: 5px auto 0 auto;
+    }
+
+    .errorNotFound__back-btn {
+        display: flex;
+        position: relative;
+        top: 184px;
+        font-size: 14px;
+        line-height: 17px;
+        margin: 0;
+        transform: none;
+        left: 0%;
+    }
+}

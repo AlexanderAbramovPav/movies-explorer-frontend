@@ -1,0 +1,127 @@
+.footer {
+    display: block;
+    padding: 0 14px;
+    text-align: center;
+    align-items: center;
+    width: auto;
+    height: auto;
+    margin: 0;
+}
+
+.footer__desc {
+    padding: 79px 0 21px 0;
+    margin: 0;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #A0A0A0;
+    border-bottom: #E8E8E8 1px solid;
+}
+
+.footer__container {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 30px 0 37px 0;
+    width: auto;
+}
+
+.footer__social-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer__social-item {
+    padding: 0;
+    margin: 0 0 12px 0;
+}
+
+.footer__social-item:last-child {
+    margin: 0;
+}
+
+.footer__social-link {
+    padding: 0;
+    margin: 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #000000;
+    cursor: pointer;
+    transition: 0.3s ease-in-out opacity;
+    text-decoration: none;
+}
+
+.footer__social-link:hover {
+    opacity: 0.6;
+}
+
+.footer__year {
+    padding: 0;
+    margin: 30px 0 0 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #A0A0A0;
+}
+
+@media screen and (min-width: 767px) {
+    .footer {
+        padding: 0 30px;
+        margin: 0;
+        width: auto;
+    }
+
+    .footer__desc {
+        padding: 79px 0 20px 0;
+        font-size: 13px;
+        line-height: 16px;
+    }
+
+    .footer__container {
+        display: flex;
+        flex-direction: row-reverse;
+        padding: 20px 0 20px 0;
+        margin: 0;
+        justify-content: space-between;
+    }
+
+    .footer__social-list {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .footer__social-item {
+        margin: 0 20px 0 0;
+        padding: 0;
+    }
+
+    .footer__social-link {
+        font-size: 13px;
+        line-height: 16px;
+    }
+
+    .footer__year {
+        margin: 0;
+        font-size: 13px;
+        line-height: 16px;
+        color: #000000;
+    }
+
+}
+
+@media screen and (min-width: 1279px) {
+    .footer {
+        margin: 0 auto;
+        padding: 0 70px;
+        width: 1140px;
+        background: #FAFAFA;
+    }
+}

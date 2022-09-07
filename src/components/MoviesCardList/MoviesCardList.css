@@ -1,0 +1,26 @@
+.movies-list {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 50px 10px 0 10px;
+    width: auto;
+}
+
+@media screen and (min-width: 767px) {
+    .movies-list {
+        display: grid;
+        flex-direction: none;
+        grid-template-columns: repeat(2, auto);
+        gap: 36px 30px;
+        margin: 80px 30px 30px 30px;
+    }
+    
+}
+
+@media screen and (min-width: 1279px) {
+    .movies-list {
+        margin: 80px 70px 30px 70px;
+        grid-template-columns: repeat(3, auto);
+        gap: 30px 24px;
+    }
+}
