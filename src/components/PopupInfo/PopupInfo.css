@@ -1,0 +1,32 @@
+.popup-info__icon {
+    align-self: center;
+    display: flex;
+    width: 120px;
+    height: 120px;
+    margin: 60px 155px 0 155px;
+}
+
+.popup-info__title {
+    display: block;
+    padding: 0;
+    margin: 34px 64px 0 36px;
+    font-family: Inter, Arial;
+    font-style: normal;
+    font-weight: 500;
+    font-size: calc(18px + (24 - 18) * ((100vw - 320px) / (768 - 320)));
+    line-height: calc(22px + (29 - 22) * ((100vw - 320px) / (768 - 320)));
+    margin: 25px 20px 50px 20px;
+    width: auto;
+    color: #000000;
+    text-align: center;
+}
+
+
+@media screen and (min-width: 767px) {
+
+    .popup-info__title {
+        font-size: 24px;
+        line-height: 29px;
+    }
+
+}

@@ -1,0 +1,52 @@
+@import url(./vendor/normalize.css);
+
+@import url(./vendor/font-files/font-files.css);
+
+@import url(./components/Error404/Error404.css);
+
+@import url(./components/Logo/Logo.css);
+@import url(./components/Header/Header.css);
+@import url(./components/Promo/Promo.css);
+@import url(./components/NavTab/NavTab.css);
+@import url(./components/SectionTitle/SectionTitle.css);
+@import url(./components/DescText/DescText.css);
+@import url(./components/AboutProject/AboutProject.css);
+@import url(./components/Techs/Techs.css);
+@import url(./components/AboutMe/AboutMe.css);
+@import url(./components/Portfolio/Portfolio.css);
+@import url(./components/Footer/Footer.css);
+
+@import url(./components/Greetings/Greetings.css);
+@import url(./components/SignInput/SignInput.css);
+@import url(./components/SignSubmitBtn/SignSubmitBtn.css);
+@import url(./components/SignInfo/SignInfo.css);
+@import url(./components/Login/Login.css);
+@import url(./components/Register/Register.css);
+
+@import url(./components/AccountHeader/AccountHeader.css);
+@import url(./components/Profile/Profile.css);
+
+@import url(./components/SearchForm/SearchForm.css);
+@import url(./components/MoviesCardList/MoviesCardList.css);
+@import url(./components/MoviesCard/MoviesCard.css);
+@import url(./components/FindMoreBtn/FindMoreBtn.css);
+@import url(./components/Movies/Movies.css);
+@import url(./components/SavedMovies/SavedMovies.css);
+@import url(./components/Preloader/Preloader.css);
+
+@import url(./components/InfoTooltip/InfoTooltip.css);
+@import url(./components/EditAccountInfoForm/EditAccountInfoForm.css);
+@import url(./components/PopupInfo/PopupInfo.css);
+
+body {
+  background-color: white;
+  font-family: 'Inter', Arial, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  margin: 0;
+  padding: 0;
+}

@@ -1,0 +1,19 @@
+.movies {
+    display: block;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+@media screen and (min-width: 767px) {
+
+}
+
+@media screen and (min-width: 1279px) {
+    .movies {
+        width: 1280px;
+        margin: 0 auto;
+    }
+}

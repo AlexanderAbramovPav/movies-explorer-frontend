@@ -1,0 +1,58 @@
+.sign-info {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    position: absolute;
+    top: 530px;
+    justify-content: center;
+}
+
+.sign-info__text {
+    padding: 0;
+    margin: 0 7px 0 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+    color: #A0A0A0;
+}
+
+.sign-info__btn {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+    color: #FF6838;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.sign-info__btn:hover {
+    opacity: 0.6;
+}
+
+@media screen and (min-width: 767px) {
+    .sign-info {
+        top: 400px;
+    }
+
+    .sign-info__text {
+        margin: 0 6px 0 0;
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+    .sign-info__btn {
+        font-size: 14px;
+        line-height: 17px;
+    }
+}
