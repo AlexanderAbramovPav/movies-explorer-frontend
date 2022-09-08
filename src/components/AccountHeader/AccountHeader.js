@@ -3,12 +3,18 @@ import Logo from '../Logo/Logo';
 import {Link} from 'react-router-dom';
 
 function AccountHeader(props) {
+    const [isChecked, setIsChecked] = useState(false)
+
+
+    useEffect(() => {
+        isChecked ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'scroll' 
+    }, [isChecked]);
 
     return (
         <header className='account-header'>
             <Logo />
             <div className="account-header__navbar-container">
-                <input className='account-header__input' type="checkbox" />
+                <input className='account-header__input' type="checkbox" defaultChecked={isChecked} onChange={() => setIsChecked(!isChecked)}/>
                 <div className="account-header__overlay"></div>
                 <div className="account-header__hamburger-lines">
                     <span className="account-header__line account-header__line_first"></span>

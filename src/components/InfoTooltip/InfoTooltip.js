@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CloseBtn from '../../images/vector-close.svg';
 
 function InfoTooltip(props) {
+
     return (
       <div className={props.isOpen ? `popup popup_opened` : `popup`} onClick={props.onOutClick}>
         <div className="popup__container">

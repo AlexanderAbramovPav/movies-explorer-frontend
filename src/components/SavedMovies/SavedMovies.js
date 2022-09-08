@@ -10,9 +10,11 @@ function SavedMovies(props) {
     return (
         <section className='saved-movies'>
             <AccountHeader routeLinks={props.routeLinks}/>
-            <SearchForm />
-            <MoviesCardList isProfile={true}/>
-            <FindMoreBtn isProfile={true}/>
+            <main className='saved-movies__main'>
+                <SearchForm />
+                <MoviesCardList isProfile={true}/>
+                <FindMoreBtn isProfile={true}/>
+            </main>
             <Footer />
         </section>
     );

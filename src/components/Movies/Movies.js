@@ -17,19 +17,21 @@ function Movies(props) {
     return (
         <section className='movies'>
             <AccountHeader routeLinks={props.routeLinks}/>
-            <SearchForm />
-            {!isLoading ?
-                <>
-                    {!isEmptyList ?
+            <main className='movies__main'>
+                <SearchForm />
+                    {!isLoading ?
                         <>
-                            <MoviesCardList isProfile={false}/>
-                            {!isMoreLoading ? 
-                            <FindMoreBtn isProfile={false}/> 
-                            : <Preloader />}
+                            {!isEmptyList ?
+                                <>
+                                    <MoviesCardList isProfile={false}/>
+                                    {!isMoreLoading ? 
+                                    <FindMoreBtn isProfile={false}/> 
+                                    : <Preloader />}
+                                </>
+                            : <Greetings text={'По данному запросу фильмы не найдены...'}/>}
                         </>
-                    : <Greetings text={'По данному запросу фильмы не найдены...'}/>}
-                </>
-            : <Preloader />}
+                    : <Preloader />}
+            </main>  
             <Footer />
         </section>
     );

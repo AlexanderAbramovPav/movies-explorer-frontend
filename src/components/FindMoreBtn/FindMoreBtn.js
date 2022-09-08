@@ -4,7 +4,7 @@ function FindMoreBtn(props) {
 
     return (
         <div className='more-loader'>
-            {!props.isProfile && <button className='more-loader__btn'>Ещё</button>}
+            {!props.isProfile && <button className='more-loader__btn' type='button'>Ещё</button>}
         </div>
     );
 }

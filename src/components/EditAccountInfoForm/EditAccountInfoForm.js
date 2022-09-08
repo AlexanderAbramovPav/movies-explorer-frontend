@@ -4,6 +4,11 @@ import SignInput from '../SignInput/SignInput';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
 function EditAccountInfoForm(props) {
+
+    useEffect(() => {
+      props.isOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'scroll' 
+    }, [props.isOpen]);
+
     return (
       <InfoTooltip onClose={""} isOpen={props.isOpen} onOutClick={""}>
         <h2 className="edit-form__title">{props.title}</h2>

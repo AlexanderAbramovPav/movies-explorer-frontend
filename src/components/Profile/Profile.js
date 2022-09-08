@@ -8,7 +8,7 @@ function Profile(props) {
     return (
         <section className='profile'>
             <AccountHeader routeLinks={props.routeLinks}/>
-            <div className='profile__main'>
+            <main className='profile__main'>
                 <Greetings text='Привет, Виталий!'/>
                 <ul className='profile__container'>
                     <li className='profile__list-item'>
@@ -22,7 +22,7 @@ function Profile(props) {
                 </ul>
                 <Link className='profile__edit-btn' to={""}>Редактировать</Link>
                 <Link className='profile__logout-btn' to={""}>Выйти из аккаунта</Link>
-            </div>
+            </main>
         </section>
     );
 }

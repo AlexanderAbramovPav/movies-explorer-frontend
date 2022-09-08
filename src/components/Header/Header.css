@@ -26,6 +26,7 @@
     transition: 0.3s ease-in-out opacity;
     cursor: pointer;
     text-decoration: none;
+    color: #000000;
 }
 
 .header__signup-btn:hover {
@@ -45,6 +46,7 @@
     transition: 0.3s ease-in-out opacity;
     cursor: pointer;
     text-decoration: none;
+    color: #000000;
 }
 
 .header__signin-btn:hover {

@@ -11,7 +11,8 @@
     flex-direction: column;
     align-items: center;
     width: auto;
-    margin: 30px 0 0 0;
+    max-width: 260px;
+    margin: 30px auto 0 auto;
 }
 
 .profile__container {
@@ -30,7 +31,7 @@
     justify-content: space-between;
     padding: 0 0 16px 0;
     border-bottom: 1px solid #E8E8E8;
-    margin: 0 30px 17px 30px;
+    margin: 0 0 17px 0;
 }
 
 .profile__list-item:last-child {
