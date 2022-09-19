@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 function FindMoreBtn(props) {
 
+    const handleMoreClick = () => {
+        props.onMore();
+    }
+
     return (
         <div className='more-loader'>
-            {!props.isProfile && <button className='more-loader__btn' type='button'>Ещё</button>}
+            <button className='more-loader__btn' type='button' onClick={handleMoreClick}>Ещё</button>
         </div>
     );
 }

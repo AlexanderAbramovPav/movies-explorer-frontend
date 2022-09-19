@@ -4,6 +4,7 @@
     padding: 0;
     align-items: center;
     overflow-x: hidden;
+    height: 100vh;
 }
 
 .profile__main {
@@ -72,6 +73,8 @@
     color: #000000;
     cursor: pointer;
     text-decoration: none;
+    border: none;
+    background: transparent;
     transition: opacity 0.3s ease-in-out; 
 }
 
@@ -90,6 +93,8 @@
     color: #EE3465;
     cursor: pointer;
     text-decoration: none;
+    border: none;
+    background: transparent;
     transition: opacity 0.3s ease-in-out; 
 }
 
@@ -131,7 +136,7 @@
 @media screen and (min-width: 1279px) {
     .profile {
         padding: 0;
-        max-width: 1140px;
+        max-width: 1280px;
         margin: 0 auto;
     }
 

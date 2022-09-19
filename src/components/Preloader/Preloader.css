@@ -46,7 +46,7 @@
     width: auto;
     height: 100%;
     z-index: 10;
-    padding: 20px;
+    padding: 70px 0 0 0;
 }
 
 .preloader__container {
@@ -85,4 +85,10 @@
     z-index: 10;
     background: #FF6838;
     animation: preloader-inside-red 1s ease-in-out infinite;
+}
+
+@media screen and (min-width: 1279px) {
+    .preloader {
+        padding: 70px 0 50px 0;
+    }
 }

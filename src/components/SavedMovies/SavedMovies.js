@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import AccountHeader from '../AccountHeader/AccountHeader';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer'
-import FindMoreBtn from '../FindMoreBtn/FindMoreBtn';
+import Preloader from '../Preloader/Preloader';
+import Greetings from '../Greetings/Greetings'
 
 function SavedMovies(props) {
 
@@ -11,9 +12,24 @@ function SavedMovies(props) {
         <section className='saved-movies'>
             <AccountHeader routeLinks={props.routeLinks}/>
             <main className='saved-movies__main'>
-                <SearchForm />
-                <MoviesCardList isProfile={true}/>
-                <FindMoreBtn isProfile={true}/>
+                <SearchForm 
+                    onSearch={props.onSearch}
+                    searchValue={props.searchValue}
+                    switchValue={props.switchValue}
+                    isProfile={true}
+                />
+                {!props.isLoading ?
+                    <>
+                        <MoviesCardList 
+                            isProfile={true} 
+                            userCards={props.userCards} 
+                            onSave={props.onSave} 
+                        />
+                    </> 
+                : <Preloader />
+                }
+                {!props.movieList ? "" : <Greetings text={'Нет сохранённых фильмов'}/>}
+                {!props.isEmptyList ? "" : <Greetings text={'Ничего не найдено'}/>}
             </main>
             <Footer />
         </section>

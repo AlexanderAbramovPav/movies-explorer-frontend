@@ -33,7 +33,13 @@
     width: 100%;
     cursor: pointer;
     transition: opacity 0.3s ease-in-out;
+    margin-top: 40px;
 }
+
+.edit-form__submit-btn_disabled {
+    background: rgba(191, 191, 191);
+}
+
 
 .edit-form__submit-btn:hover {
     opacity: 0.6;
