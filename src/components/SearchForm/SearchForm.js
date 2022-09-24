@@ -42,7 +42,7 @@ function SearchForm(props) {
             <form className='searcher' onSubmit={handleSearchClick}>
                 <div className='searcher__container'>
                     <img className='searcher__search-icon' src={SearchIcon} alt='Иконка лупы'/>
-                    <input className='searcher__input-movie' placeholder="Фильм" type='text' onChange={inputHandler} defaultValue={inputText} required={!props.isProfile}/>
+                    <input className='searcher__input-movie' placeholder="Фильм" type='text' onChange={inputHandler} defaultValue={inputText}/>
                     <button className='searcher__submit-btn' aria-label="Подтвердить действие" type="submit" name="submit-button"><img src={FindIcon} alt='Иконка поиска'/></button>
                 </div>
                 <div className='searcher__switch-container'>

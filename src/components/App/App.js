@@ -26,7 +26,8 @@ function App() {
 
   // Константы LS
   const localStorageItems = {
-    foundFilms: 'foundFilms', 
+    allFoundMovies: 'allFoundMovies', 
+    foundFilms: 'foundFilms',
     searchFilter: 'searchFilter', 
     isShort: 'isShort',
     savedFoundFilms: 'savedFoundFilms',
@@ -52,6 +53,7 @@ function App() {
   // Константы поиска
   const [userCards, setUserCards] = useState(null);
   const [foundMovies, setFoundMovies] = useState(JSON.parse(localStorage.getItem(localStorageItems.foundFilms)));
+  const [allFoundMovies, setAllFoundMovies] = useState(JSON.parse(localStorage.getItem(localStorageItems.allFoundMovies)));
   const [searchInputValue, setSearchInputValue] = useState(localStorage.getItem(localStorageItems.searchFilter));
   const [searchSwitchValue, setSearchSwitchValue] = useState(localStorage.getItem(localStorageItems.isShort));
   
@@ -172,6 +174,7 @@ function App() {
   //Удаление инфы из локального хранилища
   function deleteLocalStorageInfo() {
     localStorage.removeItem(localStorageItems.foundFilms);
+    localStorage.removeItem(localStorageItems.allFoundMovies);
     localStorage.removeItem(localStorageItems.searchFilter);
     localStorage.removeItem(localStorageItems.isShort);
     localStorage.removeItem(localStorageItems.savedFoundFilms);
@@ -224,6 +227,8 @@ function App() {
     })
     .catch((err) => {
         console.log(err);
+        setCurrentUser(data.values);
+        console.log(data.values)
         handleSignSubmitPopup({
           icon: errorIcon,
           tipTitle: "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
@@ -296,21 +301,47 @@ function App() {
   const handleMovieSearchClick = async (searchFilter, isShort) => {
 
     try {
-      setIsEmptyList(false);
-      setIsLoading(true)
-      setFoundMovies(null);
-      setUserCards(null);
 
-      const foundMovies = await getMovies();
-      const foundFilteredMovies = filterMovies(foundMovies, searchFilter, isShort);
-      setFoundMovies(foundFilteredMovies);
+      if (searchFilter === undefined || searchFilter === "" || searchFilter === null || searchFilter < 1) {
 
-      localStorage.setItem(localStorageItems.foundFilms, JSON.stringify(foundFilteredMovies));
-      localStorage.setItem(localStorageItems.searchFilter, searchFilter);
-      localStorage.setItem(localStorageItems.isShort, isShort);
-      setSearchInputValue(searchFilter);
-      setSearchSwitchValue(isShort);
-      
+        handleSignSubmitPopup({
+          icon: errorIcon,
+          tipTitle: "Нужно ввести ключевое слово"
+        })
+
+      } else if (allFoundMovies) {
+          setIsEmptyList(false);
+          setIsLoading(true)
+          setFoundMovies(null);
+          setUserCards(null);
+
+          const foundFilteredMovies = filterMovies(allFoundMovies, searchFilter, isShort);
+          setFoundMovies(foundFilteredMovies);
+
+          localStorage.setItem(localStorageItems.foundFilms, JSON.stringify(foundFilteredMovies));
+          localStorage.setItem(localStorageItems.searchFilter, searchFilter);
+          localStorage.setItem(localStorageItems.isShort, isShort);
+          setSearchInputValue(searchFilter);
+          setSearchSwitchValue(isShort);
+
+        } else {
+          setIsEmptyList(false);
+          setIsLoading(true)
+          setFoundMovies(null);
+          setUserCards(null);
+
+          const foundMovies = await getMovies();
+          setAllFoundMovies(foundMovies);
+          const foundFilteredMovies = filterMovies(foundMovies, searchFilter, isShort);
+          setFoundMovies(foundFilteredMovies);
+
+          localStorage.setItem(localStorageItems.foundFilms, JSON.stringify(foundFilteredMovies));
+          localStorage.setItem(localStorageItems.searchFilter, searchFilter);
+          localStorage.setItem(localStorageItems.isShort, isShort);
+          setSearchInputValue(searchFilter);
+          setSearchSwitchValue(isShort);
+        }
+
     } catch (err) {
       console.log(err);
       handleSignSubmitPopup({
@@ -322,6 +353,12 @@ function App() {
   }
 
   // При получении фильмов получаем карточки
+  useEffect(() => {
+    if (allFoundMovies) {
+      localStorage.setItem(localStorageItems.allFoundMovies, JSON.stringify(allFoundMovies));
+    }
+  }, [allFoundMovies])
+
   useEffect(() => {
     if (foundMovies) {
       getCardsByWidth()
@@ -423,25 +460,26 @@ function App() {
   const handleSavedMovieSearchClick = (searchFilter, isShort) => {
 
     try {
-      setIsEmptySavedList(false);
-      setIsLoading(true)
-      setSavedFoundMovies(null);
+        setIsEmptySavedList(false);
+        setIsLoading(true)
+        setSavedFoundMovies(null);
 
-      const foundFilteredMovies = filterMovies(userSavedMovies, searchFilter, isShort);
-      setSavedFoundMovies(foundFilteredMovies);
+        
+        const foundFilteredMovies = filterMovies(userSavedMovies, searchFilter, isShort);
+        setSavedFoundMovies(foundFilteredMovies);
 
-      if (foundFilteredMovies < 1) {
-        setIsEmptySavedList(true);
-      }
+        if (foundFilteredMovies < 1) {
+          setIsEmptySavedList(true);
+        }
 
-      localStorage.setItem(localStorageItems.savedFoundFilms, JSON.stringify(foundFilteredMovies));
-      localStorage.setItem(localStorageItems.savedSearchFilter, searchFilter);
-      localStorage.setItem(localStorageItems.savedIsShort, isShort);
+        localStorage.setItem(localStorageItems.savedFoundFilms, JSON.stringify(foundFilteredMovies));
+        localStorage.setItem(localStorageItems.savedSearchFilter, searchFilter);
+        localStorage.setItem(localStorageItems.savedIsShort, isShort);
 
-      setSearchSavedInputValue(searchFilter);
-      setSearchSavedSwitchValue(isShort);
-      
-    } catch (err) {
+        setSearchSavedInputValue(searchFilter);
+        setSearchSavedSwitchValue(isShort);
+
+      } catch (err) {
       console.log(err);
       handleSignSubmitPopup({
         icon: errorIcon,

@@ -77,7 +77,7 @@ function Register(props) {
 
                 <SignInput text={'E-mail'} name={'email'} type={'email'} err={"Некорректный Email"} isError={isEmailError} onChange={useFormData.handleChange} data={useFormData.values?.email}/>
 
-                <SignInput text={'Пароль'} name={'password'} type={'password'} err={"От 8 символов с хотя бы одной заглавной и цифрой"} isError={isPasswordError} onChange={useFormData.handleChange} data={useFormData.values?.password}/>
+                <SignInput text={'Пароль'} name={'password'} type={'password'} err={"8+ знаков, хотя бы 1 заглавная, прописная, цифра"} isError={isPasswordError} onChange={useFormData.handleChange} data={useFormData.values?.password}/>
 
                 <SignSubmitBtn text={'Зарегистрироваться'} isError={isFormError}/>
                 <SignInfo text={'Уже зарегистрированы?'} actBtn={'Войти'} onSignChange={props.onSignChange}/>

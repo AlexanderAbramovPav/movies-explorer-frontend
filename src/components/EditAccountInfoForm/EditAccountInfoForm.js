@@ -25,6 +25,11 @@ function EditAccountInfoForm(props) {
       else if (!nameRegExp.test(useFormData.values?.name)) {
         setIsNameError(true);
       } else {setIsNameError(false)}
+
+      if (useFormData.values?.email === currentUser?.email && useFormData.values?.name === currentUser?.name) {
+        setIsFormError(true);
+      } else setIsFormError(false)
+
     }, [useFormData.values?.name])
 
     useEffect(() => {
@@ -33,9 +38,15 @@ function EditAccountInfoForm(props) {
       }
       else if (!emailRegExp.test(useFormData.values?.email)) {
         setIsEmailError(true);
-      } else {setIsEmailError(false)}
-    }, [useFormData.values?.email])
+      } else {
+        setIsEmailError(false);
+      }
 
+      if (useFormData.values?.email === currentUser?.email && useFormData.values?.name === currentUser?.name) {
+        setIsFormError(true); 
+      } else setIsFormError(false)
+
+    }, [useFormData.values?.email])
 
     useEffect(() => {
       if ((!isNameError && !isEmailError) && useFormData.values?.name && useFormData?.values.email) {
@@ -43,6 +54,11 @@ function EditAccountInfoForm(props) {
       } else {
         setIsFormError(true)
       }
+
+      if (useFormData.values?.email === currentUser?.email && useFormData.values?.name === currentUser?.name) {
+        setIsFormError(true);
+      }
+
     }, [isNameError, isEmailError])
 
 
@@ -53,6 +69,7 @@ function EditAccountInfoForm(props) {
         name: currentUser?.name,
         email: currentUser?.email
       })
+      setIsFormError(true);
     }, [props.isOpen]);
 
     // Обработчик 
@@ -69,7 +86,7 @@ function EditAccountInfoForm(props) {
       !useFormData ? "" :
       <InfoTooltip onClose={props.onClose} isOpen={props.isOpen} onOutClick={props.onOutClick}>
         <h2 className="edit-form__title">{props.title}</h2>
-          <form className="edit-form__form" name={`form_${props.name}`}  onSubmit={handleSubmit} >
+          <form className="edit-form__form" name={`form_${props.name}`} onSubmit={handleSubmit} >
 
             <SignInput text={'Имя'} name={'name'} type={'string'} err={"Имя должно быть строкой больше 2 символов"} isError={isNameError} onChange={useFormData.handleChange} data={useFormData.values?.name}/>
 
