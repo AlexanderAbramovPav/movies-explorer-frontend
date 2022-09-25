@@ -76,10 +76,6 @@ function EditAccountInfoForm(props) {
     function handleSubmit(e) {
       e.preventDefault()
       props.onUpdateUser(useFormData);
-      useFormData.setValues({
-        name: currentUser?.name,
-        email: currentUser?.email
-      })
     }
 
     return (
@@ -88,7 +84,7 @@ function EditAccountInfoForm(props) {
         <h2 className="edit-form__title">{props.title}</h2>
           <form className="edit-form__form" name={`form_${props.name}`} onSubmit={handleSubmit} >
 
-            <SignInput text={'Имя'} name={'name'} type={'string'} err={"Имя должно быть строкой больше 2 символов"} isError={isNameError} onChange={useFormData.handleChange} data={useFormData.values?.name}/>
+            <SignInput text={'Имя'} name={'name'} type={'string'} err={"Строкой больше 2 символов и без пробела"} isError={isNameError} onChange={useFormData.handleChange} data={useFormData.values?.name}/>
 
             <SignInput text={'E-mail'} name={'email'} type={'email'} err={"Некорректный Email"} isError={isEmailError} onChange={useFormData.handleChange} data={useFormData.values?.email}/>
 

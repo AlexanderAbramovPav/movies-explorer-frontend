@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FindIcon from '../../images/find-icon.svg'
 import SearchIcon from '../../images/search-icon.svg'
 
@@ -17,11 +17,15 @@ function SearchForm(props) {
 
 
     // Обработка изменения инпута радиокнопки
-    const inputSwitchHandler = (e) => {
+    const inputSwitchHandler = async (e) => {
         if (e.target.checked) {
-            setInputChecked(true)
+            await setInputChecked(true)
         } else {
-            setInputChecked(false)
+            await setInputChecked(false)
+        }
+
+        if (inputText || props.isProfile) {
+            props.onSearch(inputText, e.target.checked);
         }
     };
 

@@ -73,7 +73,7 @@ function Register(props) {
             <Logo />
             <Greetings text={'Добро пожаловать!'}/>
             <form className='register__form-container' onSubmit={handleSubmit}>
-                <SignInput text={'Имя'} name={'name'} type={'string'} err={"Имя должно быть строкой больше 2 символов"} isError={isNameError} onChange={useFormData.handleChange} data={useFormData.values?.name}/>
+                <SignInput text={'Имя'} name={'name'} type={'string'} err={"Строкой больше 2 символов и без пробела"} isError={isNameError} onChange={useFormData.handleChange} data={useFormData.values?.name}/>
 
                 <SignInput text={'E-mail'} name={'email'} type={'email'} err={"Некорректный Email"} isError={isEmailError} onChange={useFormData.handleChange} data={useFormData.values?.email}/>
 

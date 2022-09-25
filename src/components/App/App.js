@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CurrentUserContext} from '../../context/CurrentUserContext';
-import { Route, Routes, Navigate, useNavigate} from 'react-router-dom';
+import { Route, Routes, Navigate, useNavigate, useLocation} from 'react-router-dom';
 import ProtectedRoutes from '../ProtectedRoutes/ProtectedRoutes.js';
 import Main from '../Main/Main';
 import Login from '../Login/Login';
@@ -54,8 +54,8 @@ function App() {
   const [userCards, setUserCards] = useState(null);
   const [foundMovies, setFoundMovies] = useState(JSON.parse(localStorage.getItem(localStorageItems.foundFilms)));
   const [allFoundMovies, setAllFoundMovies] = useState(JSON.parse(localStorage.getItem(localStorageItems.allFoundMovies)));
-  const [searchInputValue, setSearchInputValue] = useState(localStorage.getItem(localStorageItems.searchFilter));
-  const [searchSwitchValue, setSearchSwitchValue] = useState(localStorage.getItem(localStorageItems.isShort));
+  const [searchInputValue, setSearchInputValue] = useState(localStorage.getItem(localStorageItems.searchFilter) || "");
+  const [searchSwitchValue, setSearchSwitchValue] = useState(localStorage.getItem(localStorageItems.isShort) || "");
   
   // Константы результатов поиска
   const [isEmptyList, setIsEmptyList] = useState(false);
@@ -67,8 +67,8 @@ function App() {
   const [isEmptySavedList, setIsEmptySavedList] = useState(false);
   const [userSavedMovies, setUserSavedMovies] = useState(null);
   const [savedFoundMovies, setSavedFoundMovies] = useState(JSON.parse(localStorage.getItem(localStorageItems.savedFoundFilms)));
-  const [searchSavedInputValue, setSearchSavedInputValue] = useState(localStorage.getItem(localStorageItems.savedSearchFilter));
-  const [searchSavedSwitchValue, setSearchSavedSwitchValue] = useState(localStorage.getItem(localStorageItems.savedIsShort));
+  const [searchSavedInputValue, setSearchSavedInputValue] = useState(localStorage.getItem(localStorageItems.savedSearchFilter || ""));
+  const [searchSavedSwitchValue, setSearchSavedSwitchValue] = useState(localStorage.getItem(localStorageItems.savedIsShort) || "");
 
   // Константы попапов
   const [selectedTooltip, setSelectedTooltip] = useState(null);
@@ -145,6 +145,10 @@ function App() {
           })
           localStorage.setItem(localStorageItems.isLogged, 'true')
           navigate(routes.movies);
+
+          setTimeout(() => {
+            localStorage.removeItem(localStorageItems.isLogged);
+          }, 3600000)
         }
     })
     .catch((err) => {
@@ -227,8 +231,7 @@ function App() {
     })
     .catch((err) => {
         console.log(err);
-        setCurrentUser(data.values);
-        console.log(data.values)
+        setIsEditPopupOpen(false);
         handleSignSubmitPopup({
           icon: errorIcon,
           tipTitle: "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
@@ -404,18 +407,29 @@ function App() {
   // Добавление/удаление карточки в сохраненные в Movies
   function handleMovieSave(movie) {
 
+    const urlRegExp = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+
+    if (!urlRegExp.test(movie.trailerLink)) {
+      movie.trailerLink = "https://www.youtube.com"
+    }
+
+    console.log()
+
     const isLiked = userSavedMovies.some(i => i.movieId === movie.id);
     const savedCard = userSavedMovies.find(i => i.movieId === movie.id);
 
     api.changeLikeCardStatus(savedCard?._id, isLiked, movie)
-
     .then((newMovie) => {
       if (isLiked) {
         setUserSavedMovies((state) => state.filter((m) => m.movieId !== movie.id))
-        const foundSavedMoviesLS = JSON.parse(localStorage.getItem(localStorageItems.savedFoundFilms));
-        const changedFoundMovies = foundSavedMoviesLS.filter((m) => m.movieId !== movie.movieId);
-        setSavedFoundMovies(changedFoundMovies)
-        localStorage.setItem(localStorageItems.savedFoundFilms, JSON.stringify(changedFoundMovies));
+
+        if (localStorageItems.savedFoundFilms > 0) {
+          const foundSavedMoviesLS = JSON.parse(localStorage.getItem(localStorageItems.savedFoundFilms));
+          const changedFoundMovies = foundSavedMoviesLS.filter((m) => m.movieId !== movie.movieId);
+          setSavedFoundMovies(changedFoundMovies)
+          localStorage.setItem(localStorageItems.savedFoundFilms, JSON.stringify(changedFoundMovies));
+        }
+        
       } else {
         setUserSavedMovies([newMovie, ...userSavedMovies]);
       }

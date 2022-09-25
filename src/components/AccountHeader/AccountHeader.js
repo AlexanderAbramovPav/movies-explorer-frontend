@@ -1,23 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import Logo from '../Logo/Logo';
-import {Link} from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function AccountHeader(props) {
 
     const [isChecked, setIsChecked] = useState(false)
     const width = window.innerWidth;
 
+    let location = useLocation().pathname
+    
+    const isMovies = (location) => {
+        if (location === "/movies") {
+            return 'movies'
+        } else if (location === "/saved-smovies") {
+            return 'saved-movies'
+        } else return 'saved-movies'
+    }
+
+    useEffect(() => {
+        isMovies(location)
+    }, [location])
+    
+
+
     useEffect(() => {
 
         // Анимация бургера исходя из ширины экрана + прячем бургер
         const width = window.innerWidth;
+
         if (isChecked) {
             document.body.style.overflowY = 'hidden';
             document.body.style.overflowX = 'hidden';
+            document.body.querySelector('.account-header__burger-items').style.display = 'flex'
             width >= 768 ? document.body.querySelector('.account-header__burger-items').style.transform = 'translateX(45%)' : document.body.querySelector('.account-header__burger-items').style.transform = 'translateX(0%)'
         } else {
             document.body.style.overflowY = 'auto';
             document.body.style.overflowX = 'hidden';
+            document.body.querySelector('.account-header__burger-items').style.display = 'none'
             width >= 768 ? document.body.querySelector('.account-header__burger-items').style.transform = 'translateX(145%)' : document.body.querySelector('.account-header__burger-items').style.transform = 'translateX(100%)';
         }
     }, [width, isChecked]);
@@ -41,8 +60,8 @@ function AccountHeader(props) {
             <div className="account-header__navbar-container">
                 <ul className="account-header__burger-items">
                     <li className='account-header__burger-item'><p className='account-header__burger-title'>Главная</p></li>
-                    <li className='account-header__burger-item'><Link className='account-header__burger-link account-header__burger-link_chosen' to={props.routeLinks.movies}>Фильмы</Link></li>
-                    <li className='account-header__burger-item'><Link className='account-header__burger-link' to={props.routeLinks.savedMovies}>Сохранённые фильмы</Link></li>
+                    <li className='account-header__burger-item'><Link className={isMovies(location) === 'movies' ? `account-header__burger-link account-header__burger-link_chosen` : `account-header__burger-link`} to={props.routeLinks.movies}>Фильмы</Link></li>
+                    <li className='account-header__burger-item'><Link className={isMovies(location) === 'saved-movies' ? `account-header__burger-link account-header__burger-link_chosen` : `account-header__burger-link`} to={props.routeLinks.savedMovies}>Сохранённые фильмы</Link></li>
                     <li className='account-header__burger-item'><Link className='account-header__text' to={props.routeLinks.profile}>Аккаунт</Link></li>
                 </ul>
             </div>

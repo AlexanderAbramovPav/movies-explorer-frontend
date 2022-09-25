@@ -94,7 +94,7 @@
     background: #fff;
     height: calc(100vh - 144px);
     width: 100vw;
-    display: flex;
+    display: none;
     flex-direction: column;
     transition: transform 0.5s ease-in-out;
     z-index: 3;
