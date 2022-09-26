@@ -259,22 +259,6 @@
         padding: 0;
         margin: 0 16px 0 0;
         font-style: normal;
-        font-weight: 500;
-        font-size: 13px;
-        line-height: 18px;
-        color: #000000;
-        text-decoration: none;
-        transition: opacity 0.3s ease-in-out;
-    }
-
-    .account-header__movies-btn:hover {
-        opacity: 0.6;
-    }
-    
-    .account-header__saved-movies-btn{
-        padding: 0;
-        margin: 0;
-        font-style: normal;
         font-weight: 400;
         font-size: 13px;
         line-height: 18px;
@@ -283,8 +267,11 @@
         transition: opacity 0.3s ease-in-out;
     }
 
-    .account-header__saved-movies-btn:hover {
-        opacity: 0.6;
+    .account-header__movies-btn_chosen {
+        font-weight: 500;
     }
 
+    .account-header__movies-btn:hover {
+        opacity: 0.6;
+    }
 }

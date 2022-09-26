@@ -231,7 +231,6 @@ function App() {
     })
     .catch((err) => {
         console.log(err);
-        setIsEditPopupOpen(false);
         handleSignSubmitPopup({
           icon: errorIcon,
           tipTitle: "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
