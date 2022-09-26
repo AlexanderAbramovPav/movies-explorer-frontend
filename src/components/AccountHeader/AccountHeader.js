@@ -12,7 +12,7 @@ function AccountHeader(props) {
     const isMovies = (location) => {
         if (location === "/movies") {
             return 'movies'
-        } else if (location === "/saved-smovies") {
+        } else if (location === "/saved-movies") {
             return 'saved-movies'
         } else if (location === "/") {
             return 'main'
