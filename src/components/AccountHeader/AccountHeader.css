@@ -5,6 +5,8 @@
     width: auto;
     padding: 0 14px;
     margin: 18px 0 18px 0;
+    z-index: 3;
+    overflow-x: hidden;
 }
 
 .account-header__full-navi {
@@ -13,26 +15,14 @@
 
 .account-header__navbar-container {
     display: block;
-    position: relative;
+    position: absolute;
     top: 0px;
     left: 0px;
-    z-index: 2;
     padding: 0;
     margin: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.account-header__navbar {
-    display: block;
-    position: relative;
-    top: 0px;
-    left: 0px;
-    z-index: 2;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    height: 100%;
+    z-index: 3;
+    width: auto;
+    height: 100vh;
 }
 
 .account-header__overlay {
@@ -40,9 +30,9 @@
     visibility: hidden;
     opacity: 0;
     position: absolute;
-    z-index: 0;
-    top: -18px;
-    left: -52px;
+    z-index: 3;
+    top: 0;
+    left: 0;
     padding: 0;
     margin: 0;
     width: 100vw;
@@ -52,20 +42,18 @@
 }
 
 .account-header__input {
-    position: absolute;
+    position: relative;
     display: block;
     height: 25px;
     width: 35px;
-    top: 10px;
-    right: 14px;
     z-index: 5;
     opacity: 0;
 }
 
 .account-header__hamburger-lines {
-    position: absolute;
-    top: 10px;
-    right: 14px;
+    position: relative;
+    top: -20px;
+    right: 0;
     height: 22px;
     width: 30px;
     z-index: 4;
@@ -75,6 +63,7 @@
 }
 
 .account-header__line {
+    z-index: 4;
     display: block;
     height: 3px;
     width: 100%;
@@ -98,20 +87,20 @@
 
 .account-header__burger-items {
     position: absolute;
-    top: -18px;
-    left: -52px;
+    top: 0;
+    left: 0;
     padding: 144px 0 0 0;
     margin: 0;
     background: #fff;
-    height: 100vh;
+    height: calc(100vh - 144px);
     width: 100vw;
-    display: flex;
-    transform: translate(100%, 0);
+    display: none;
     flex-direction: column;
     transition: transform 0.5s ease-in-out;
-    z-index: 2;
+    z-index: 3;
     list-style: none;
     align-items: center;
+    transform: translate(100%, 0);
 }
 
 .account-header__burger-items::before {
@@ -205,35 +194,30 @@
 }
 
 
-
 @media screen and (min-width: 767px) {
     .account-header {
         padding: 0 30px;
     }
 
     .account-header__overlay {
-        left: -72px;
+        top: 0;
+        left: 0;
     }
 
     .account-header__burger-items {
         width: 70vw;
-        transform: translate(130%, 0);
-        left: 5%;
+        transform: translate(145%, 0);
+        left: 0;
         padding: 159px 0 0 0;
+        height: calc(100vh - 159px);
+        transition: transform 0.5s ease-in-out;
     }
 
     .account-header__input:checked ~ .account-header__burger-items {
         transform: translateX(30%);
     }
-
-    .account-header__input {
-        top: 10px;
-        right: 0px;
-    }
     
     .account-header__hamburger-lines {
-        top: 10px;
-        right: 0px;
         height: 22px;
         width: 30px;
     }
@@ -275,22 +259,6 @@
         padding: 0;
         margin: 0 16px 0 0;
         font-style: normal;
-        font-weight: 500;
-        font-size: 13px;
-        line-height: 18px;
-        color: #000000;
-        text-decoration: none;
-        transition: opacity 0.3s ease-in-out;
-    }
-
-    .account-header__movies-btn:hover {
-        opacity: 0.6;
-    }
-    
-    .account-header__saved-movies-btn{
-        padding: 0;
-        margin: 0;
-        font-style: normal;
         font-weight: 400;
         font-size: 13px;
         line-height: 18px;
@@ -299,8 +267,11 @@
         transition: opacity 0.3s ease-in-out;
     }
 
-    .account-header__saved-movies-btn:hover {
-        opacity: 0.6;
+    .account-header__movies-btn_chosen {
+        font-weight: 500;
     }
 
+    .account-header__movies-btn:hover {
+        opacity: 0.6;
+    }
 }

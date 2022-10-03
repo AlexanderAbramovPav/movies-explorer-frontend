@@ -5,6 +5,8 @@
     padding: 0;
     text-align: center;
     overflow-x: hidden;
+    height: 100%;
+    width: 100vw;
 }
 
 @media screen and (min-width: 767px) {

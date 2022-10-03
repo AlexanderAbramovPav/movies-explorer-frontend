@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import SectionTitle from '../SectionTitle/SectionTitle';
 import DescText from '../DescText/DescText';
 import Avatar from '../../images/pers_photo.svg'

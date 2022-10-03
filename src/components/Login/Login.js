@@ -4,17 +4,42 @@ import Greetings from '../Greetings/Greetings'
 import SignInput from '../SignInput/SignInput'
 import SignSubmitBtn from '../SignSubmitBtn/SignSubmitBtn'
 import SignInfo from '../SignInfo/SignInfo'
+import useForm from '../../hooks/useForm';
 
 function Login(props) {
+
+    const useFormData = useForm()
+
+    function handleSubmit(e) {
+      e.preventDefault()
+      props.onLogin(useFormData);
+      useFormData.setValues({
+        email: '',
+        password: ''
+      })
+    }
+
+    // Обработчик формы
+    const [isFormError, setIsFormError] = useState(true);
+
+    useEffect(() => {
+      if ((useFormData.values?.email !== undefined && useFormData.values?.password !== undefined) &&  useFormData.values?.email && useFormData.values?.password) {
+        setIsFormError(false)
+      } else {
+        setIsFormError(true)
+      }
+    }, [useFormData])
 
     return (
         <section className='login'>
             <Logo />
             <Greetings text={'Рады видеть!'}/>
-            <form className='login__form-container' onSubmit={props.onSubmitSign}>
-                <SignInput name={'E-mail'} type={'email'} err={"Некорректный Email"} isError={true} />
-                <SignInput name={'Пароль'} type={'password'} err={"Некорректный пароль"} isError={false}/>
-                <SignSubmitBtn text={'Войти'}/>
+            <form className='login__form-container' onSubmit={handleSubmit}>
+                <SignInput text={'E-mail'} type={'email'} name={'email'} onChange={useFormData.handleChange} data={useFormData.values?.email}/>
+
+                <SignInput text={'Пароль'} type={'password'} name={'password'} onChange={useFormData.handleChange} data={useFormData.values?.password}/>
+
+                <SignSubmitBtn text={'Войти'} isError={isFormError}/>
                 <SignInfo text={'Ещё не зарегистрированы?'} actBtn={'Регистрация'} onSignChange={props.onSignChange} />
             </form>
         </section>

@@ -16,6 +16,10 @@
     transition: opacity 0.3s ease-in-out;
 }
 
+.sign-submit-btn_disabled {
+    background: rgba(191, 191, 191);
+}
+
 .sign-submit-btn:hover {
     opacity: 0.6;
 }

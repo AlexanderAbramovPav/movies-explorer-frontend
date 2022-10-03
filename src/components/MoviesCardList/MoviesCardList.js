@@ -1,15 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard'
 
 function MoviesCardList(props) {
 
-    // ForEach будет реализован на следующем этапе
     return (
-        <section className='movies-list'>
-            <MoviesCard title={'33 слова о дизайне'} length={'1ч 47м'} img={'https://img.csfd.cz/files/images/film/photos/161/271/161271954_68519a.jpg?w370h370'} isSaved={true} isProfile={props.isProfile}/>
-            <MoviesCard title={'33 слова о дизайне'} length={'1ч 47м'} img={'https://img.csfd.cz/files/images/film/photos/161/271/161271954_68519a.jpg?w370h370'} isSaved={true} isProfile={props.isProfile}/>
-            <MoviesCard title={'33 слова о дизайне'} length={'1ч 47м'} img={'https://img.csfd.cz/files/images/film/photos/161/271/161271954_68519a.jpg?w370h370'} isSaved={true} isProfile={props.isProfile}/>
-        </section>
+        <>
+            {props.isProfile ?
+                <>
+                    <section className='movies-list'>
+                    {props.userCards?.map((item) => (
+                        <MoviesCard 
+                            key={item._id} 
+                            item={item} 
+                            onSave={props.onSave} 
+                            isProfile={props.isProfile}
+                        />
+                            ))}
+                    </section>
+                </> 
+                :
+                <>
+                    <section className='movies-list'>
+                    {props.userCards?.map((item) => (
+                        <MoviesCard 
+                            key={item.id} 
+                            item={item} 
+                            userSavedMovies={props.userSavedMovies} 
+                            onSave={props.onSave} 
+                            isProfile={props.isProfile}
+                        />
+                        ))}
+                    </section>
+                </>
+            }
+        </>
     );
 }
 
