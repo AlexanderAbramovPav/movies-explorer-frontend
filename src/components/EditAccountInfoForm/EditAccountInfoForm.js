@@ -10,7 +10,7 @@ function EditAccountInfoForm(props) {
     const currentUser = useContext(CurrentUserContext);
     const useFormData = useForm()
 
-    // Обработчик формы
+    // Form handler
     const [isNameError, setIsNameError] = useState(true);
     const [isEmailError, setIsEmailError] = useState(true);
     const [isFormError, setIsFormError] = useState(true);
@@ -62,7 +62,7 @@ function EditAccountInfoForm(props) {
     }, [isNameError, isEmailError])
 
 
-    // Обработчик всплывающего окна
+    // Popup Window Handler
     useEffect(() => {
       props.isOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'scroll'
       useFormData.setValues({
@@ -72,7 +72,7 @@ function EditAccountInfoForm(props) {
       setIsFormError(true);
     }, [props.isOpen]);
 
-    // Обработчик 
+    // Submit handler
     function handleSubmit(e) {
       e.preventDefault()
       props.onUpdateUser(useFormData);
@@ -84,11 +84,11 @@ function EditAccountInfoForm(props) {
         <h2 className="edit-form__title">{props.title}</h2>
           <form className="edit-form__form" name={`form_${props.name}`} onSubmit={handleSubmit} >
 
-            <SignInput text={'Имя'} name={'name'} type={'string'} err={"Строкой больше 2 символов и без пробела"} isError={isNameError} onChange={useFormData.handleChange} data={useFormData.values?.name}/>
+            <SignInput text={'Name'} name={'name'} type={'string'} err={"Must be a string with 2+ symbols and no spaces"} isError={isNameError} onChange={useFormData.handleChange} data={useFormData.values?.name}/>
 
-            <SignInput text={'E-mail'} name={'email'} type={'email'} err={"Некорректный Email"} isError={isEmailError} onChange={useFormData.handleChange} data={useFormData.values?.email}/>
+            <SignInput text={'E-mail'} name={'email'} type={'email'} err={"Incorrect Email"} isError={isEmailError} onChange={useFormData.handleChange} data={useFormData.values?.email}/>
 
-            <button className={isFormError ? `edit-form__submit-btn edit-form__submit-btn_disabled` : `edit-form__submit-btn`} aria-label="Подтвердить действие" disabled={isFormError} type="submit" name="submit-button">{props.submit}</button>
+            <button className={isFormError ? `edit-form__submit-btn edit-form__submit-btn_disabled` : `edit-form__submit-btn`} aria-label="Submit" disabled={isFormError} type="submit" name="submit-button">{props.submit}</button>
           </form>
       </InfoTooltip>
     );

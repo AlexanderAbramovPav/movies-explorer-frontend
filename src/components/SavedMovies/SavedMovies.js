@@ -28,8 +28,8 @@ function SavedMovies(props) {
                     </> 
                 : <Preloader />
                 }
-                {!props.movieList ? "" : <Greetings text={'Нет сохранённых фильмов'}/>}
-                {!props.isEmptyList ? "" : <Greetings text={'Ничего не найдено'}/>}
+                {!props.movieList ? "" : <Greetings text={'No saved movies'}/>}
+                {!props.isEmptyList ? "" : <Greetings text={'Nothing found'}/>}
             </main>
             <Footer />
         </section>

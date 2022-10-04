@@ -6,10 +6,10 @@ function Techs() {
 
     return (
         <section className='techs' id='techs'>
-            <SectionTitle text="Технологии"/>
+            <SectionTitle text="Technologies"/>
             <div className='techs__container'>
-                <h2 className='techs__title'>7 технологий</h2>
-                <DescText text="На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте." style={{maxWidth: "460px", marginRight:"auto", marginLeft:"auto"}}/>
+                <h2 className='techs__title'>7 technologies</h2>
+                <DescText text="The project includes Full-stack MERN development technologies." style={{maxWidth: "460px", marginRight:"auto", marginLeft:"auto"}}/>
                 <ul className='techs__list'>
                     <li className='techs__item'>HTML</li>
                     <li className='techs__item'>CSS</li>

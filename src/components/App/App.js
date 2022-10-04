@@ -24,7 +24,7 @@ function App() {
 
   let navigate = useNavigate();
 
-  // Константы LS
+  // Constants LS
   const localStorageItems = {
     allFoundMovies: 'allFoundMovies', 
     foundFilms: 'foundFilms',
@@ -36,7 +36,7 @@ function App() {
     isLogged: 'isLogged',
   }
 
-  // Константы роутов
+  // Constants routes
   const routes = {
     profile: '/profile', 
     movies: '/movies', 
@@ -46,36 +46,36 @@ function App() {
     main: '/'
   }
 
-  // Константы состояния по пользователю
+  // Constants user state
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
-  // Константы поиска
+  // Constants Search
   const [userCards, setUserCards] = useState(null);
   const [foundMovies, setFoundMovies] = useState(JSON.parse(localStorage.getItem(localStorageItems.foundFilms)));
   const [allFoundMovies, setAllFoundMovies] = useState(JSON.parse(localStorage.getItem(localStorageItems.allFoundMovies)));
   const [searchInputValue, setSearchInputValue] = useState(localStorage.getItem(localStorageItems.searchFilter) || "");
   const [searchSwitchValue, setSearchSwitchValue] = useState(localStorage.getItem(localStorageItems.isShort) || "");
   
-  // Константы результатов поиска
+  // Constants Search results
   const [isEmptyList, setIsEmptyList] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isMoreLoading, setIsMoreLoading] = useState(false);
   const [isMoreMoviesExists, setIsMoreMoviesExists] = useState(false);
 
-  // Константы результатов поиска в сохраненных
+  // Constants Search results in Saved
   const [isEmptySavedList, setIsEmptySavedList] = useState(false);
   const [userSavedMovies, setUserSavedMovies] = useState(null);
   const [savedFoundMovies, setSavedFoundMovies] = useState(JSON.parse(localStorage.getItem(localStorageItems.savedFoundFilms)));
   const [searchSavedInputValue, setSearchSavedInputValue] = useState(localStorage.getItem(localStorageItems.savedSearchFilter || ""));
   const [searchSavedSwitchValue, setSearchSavedSwitchValue] = useState(localStorage.getItem(localStorageItems.savedIsShort) || "");
 
-  // Константы попапов
+  // Constants popups
   const [selectedTooltip, setSelectedTooltip] = useState(null);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
 
-  // Закрытие тултипов/попавов
+  // Close popups
   function closeAllPopups() {
     setIsEditPopupOpen(false);
     setIsInfoTooltipOpen(false);
@@ -84,7 +84,7 @@ function App() {
     }, 200);
   };
 
-  // Закрытие тултипа по escape и оверлею
+  // Closing popups with espape
   const isOpen = isEditPopupOpen || isInfoTooltipOpen
 
   useEffect(() => {
@@ -104,13 +104,13 @@ function App() {
     }
   }
 
-  // Тултипы
+  // Tooltips
   function handleSignSubmitPopup(selectedTooltip) {
     setSelectedTooltip(selectedTooltip);
     setTimeout(() => {setIsInfoTooltipOpen(true)}, 500)
   };
 
-  // Регистрация
+  // Register
   function handleRegister(useFormData) {
     console.log(useFormData.values.password);
     api.register(useFormData.values.password, useFormData.values.email, useFormData.values.name)
@@ -118,7 +118,7 @@ function App() {
       if (res) {
           handleSignSubmitPopup({
             icon: okIcon, 
-            tipTitle: "Вы успешно зарегистрировались!"
+            tipTitle: "You have successfully registered!"
           });
           setTimeout(() => {handleLogin(useFormData)}, 1000)
         }
@@ -127,13 +127,13 @@ function App() {
       console.log(err)
       handleSignSubmitPopup({
         icon: errorIcon,
-        tipTitle: "Что-то пошло не так! Попробуйте ещё раз."
+        tipTitle: "Something went wrong! Try again."
       })
     });
   }
 
    
-  // Логин
+  // Log In
   function handleLogin (useFormData) {
     api.authorize(useFormData.values.password, useFormData.values.email)
     .then((res) => {
@@ -155,13 +155,13 @@ function App() {
       console.log(err)
       handleSignSubmitPopup({
         icon: errorIcon,
-        tipTitle: "Что-то пошло не так! Попробуйте ещё раз."
+        tipTitle: "Something went wrong! Try again."
       })
     });
   }
 
 
-  // Получение инфы, если залогинен
+  // Get info while login
   useEffect(() => {
     if (loggedIn) {
       Promise.all([api.getUserInfo(), api.getInitialMovies()])
@@ -175,7 +175,7 @@ function App() {
     }
   }, [loggedIn]);
 
-  //Удаление инфы из локального хранилища
+  // Clear LS info
   function deleteLocalStorageInfo() {
     localStorage.removeItem(localStorageItems.foundFilms);
     localStorage.removeItem(localStorageItems.allFoundMovies);
@@ -186,7 +186,7 @@ function App() {
     localStorage.removeItem(localStorageItems.savedIsShort);
   }
 
-  // Получение авторизации при перезагрузке
+  // Checktoken after reload
   function handleGetContent() {
     if (localStorage.getItem(localStorageItems.isLogged)) {
       api.checkToken()
@@ -208,13 +208,13 @@ function App() {
     }
   }
 
-  // Получаем контент при загрузке
+  // Get content
   useEffect(() => {
     handleGetContent(); 
   }, []);
 
 
-  // Изменение личной информации
+  // Update personal info
   function handleEditUserClick() {
     setIsEditPopupOpen(true);
   };
@@ -226,20 +226,20 @@ function App() {
       setIsEditPopupOpen(false);
       handleSignSubmitPopup({
         icon: okIcon, 
-        tipTitle: "Данные успешно обновлены"
+        tipTitle: "Profile has been successfully updated"
       });
     })
     .catch((err) => {
         console.log(err);
         handleSignSubmitPopup({
           icon: errorIcon,
-          tipTitle: "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+          tipTitle: "An error occurred during the request. There may be a connection problem or the server is unavailable. Wait a bit and try again"
         })
     });
   };
 
 
-  // Выход из аккаунта
+  // Log out
   function signOut() {
     localStorage.removeItem(localStorageItems.isLogged);
     deleteLocalStorageInfo()
@@ -253,7 +253,7 @@ function App() {
   }
 
 
-  // Фильтрация по поиску
+  // Search filter
   const filterMovies = (movies, filterWord, isShort) => {
     const filteredData = movies.filter((el) => {
       if (isShort && el.duration > 40) {
@@ -262,14 +262,14 @@ function App() {
       if ((filterWord === '') || (filterWord === null)) {
           return el;
       } else {
-          return el.nameRU.toLowerCase().includes(filterWord)
+          return el.nameEN.toLowerCase().includes(filterWord)
       }
     })
 
     return filteredData;
   }
 
-  //Получение кол-ва карточек исходя из ширины экрана
+  // Get cards based on width
   const getCardsByWidth = () => {
     const windowWidth = window.innerWidth;
     let foundFirstMovies = []
@@ -299,7 +299,7 @@ function App() {
     setUserCards(foundFirstMovies)
   }
   
-  // Получение карточек по поиску
+  // Get card on search
   const handleMovieSearchClick = async (searchFilter, isShort) => {
 
     try {
@@ -308,7 +308,7 @@ function App() {
 
         handleSignSubmitPopup({
           icon: errorIcon,
-          tipTitle: "Нужно ввести ключевое слово"
+          tipTitle: "You need to enter a keyword"
         })
 
       } else if (allFoundMovies) {
@@ -348,13 +348,13 @@ function App() {
       console.log(err);
       handleSignSubmitPopup({
         icon: errorIcon,
-        tipTitle: "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+        tipTitle: "An error occurred during the request. There may be a connection problem or the server is unavailable. Wait a bit and try again"
       })
       setIsLoading(false)
     }
   }
 
-  // При получении фильмов получаем карточки
+  // When receiving films, we receive cards
   useEffect(() => {
     if (allFoundMovies) {
       localStorage.setItem(localStorageItems.allFoundMovies, JSON.stringify(allFoundMovies));
@@ -369,7 +369,7 @@ function App() {
   }, [foundMovies])
 
 
-  // Получение дополнительного кол-ва карточек исходя из ширины экрана
+  // Get an additional number of cards based on the width of the screen
   const getMoreCardsByWidth = () => {
     const windowWidth = window.innerWidth;
     const userCardsLength = userCards.length;
@@ -388,7 +388,7 @@ function App() {
     setIsMoreLoading(false);
   }
 
-  // При окончании фильмов убираем кнопку Еще
+  // At the end of the movies, remove the More button
   useEffect(() => {
     if (userCards && userCards.length === foundMovies.length) {
       setIsMoreMoviesExists(false);
@@ -403,7 +403,7 @@ function App() {
   }
 
 
-  // Добавление/удаление карточки в сохраненные в Movies
+  // Adding/removing cards to saved in Movies
   function handleMovieSave(movie) {
 
     const urlRegExp = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
@@ -437,13 +437,13 @@ function App() {
         console.log(err);
         handleSignSubmitPopup({
           icon: errorIcon,
-          tipTitle: "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+          tipTitle: "An error occurred during the request. There may be a connection problem or the server is unavailable. Wait a bit and try again"
         })
     });
   } 
 
 
-  // Удаление сохраненных карточек из SavedMovies
+  // Deleting saved cards from SavedMovies
   function handleSavedMoviesDeleteClick(movie) {
 
     api.changeLikeCardStatus(movie._id, true, movie)
@@ -463,13 +463,13 @@ function App() {
         console.log(err);
         handleSignSubmitPopup({
           icon: errorIcon,
-          tipTitle: "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+          tipTitle: "An error occurred during the request. There may be a connection problem or the server is unavailable. Wait a bit and try again"
         })
     });
   }
 
 
-  // Поиск в разделе сохраненных карточек
+  // Search in the Saved cards section
   const handleSavedMovieSearchClick = (searchFilter, isShort) => {
 
     try {
@@ -496,13 +496,13 @@ function App() {
       console.log(err);
       handleSignSubmitPopup({
         icon: errorIcon,
-        tipTitle: "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+        tipTitle: "An error occurred during the request. There may be a connection problem or the server is unavailable. Wait a bit and try again"
       })
       setIsLoading(false)
     }
   }
 
-  // При фильтре проверяем наличие фильма
+  // When filtering, we check for the presence of a movie
   useEffect(() => {
     if (savedFoundMovies) {
       setIsLoading(false);
@@ -513,7 +513,7 @@ function App() {
   }, [savedFoundMovies])
 
 
-  // При перезагрузке получаем статус сохраненного результата поиска
+  // When restarting, we get the status of the saved search result
   useEffect(() => {
     if (JSON.parse(localStorage.getItem(localStorageItems.savedFoundFilms)) === null)
     {
@@ -526,7 +526,7 @@ function App() {
   }, []);
 
 
-  // Выбираем список сохраненных карточек, исходя из фильтра и удаления
+  // Select the list of saved cards based on the filter and deletion
   const getMoviesList = () => {
     if (localStorage.getItem(localStorageItems.savedSearchFilter) === null & localStorage.getItem(localStorageItems.savedIsShort) === null) 
     {
@@ -543,7 +543,7 @@ function App() {
   const moviesList = getMoviesList();
 
   return (
-      // Контекст пока не защищенный
+    
     <CurrentUserContext.Provider value={currentUser}>
       <Routes>
         <Route path={routes.main} element={
@@ -622,8 +622,8 @@ function App() {
         onUpdateUser={handleUpdateUser} 
         onOutClick={handleOverlay} 
         name="edit-profile" 
-        title="Редактировать профиль" 
-        submit="Сохранить"
+        title="Edit profile" 
+        submit="Edit"
       />
 
       <PopupInfo 

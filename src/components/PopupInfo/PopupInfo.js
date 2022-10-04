@@ -9,7 +9,7 @@ function PopupInfo(props) {
 
     return (
         <InfoTooltip onClose={props.onClose} isOpen={props.isOpen} onOutClick={props.onOutClick}>
-            <img className="popup-info__icon" src={props.selectedTooltip?.icon} alt='Иконка попапа'/>
+            <img className="popup-info__icon" src={props.selectedTooltip?.icon} alt='Popup'/>
             <h2 className="popup-info__title">{props.selectedTooltip?.tipTitle}</h2>
         </InfoTooltip>
     );

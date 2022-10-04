@@ -2,7 +2,7 @@ import React from 'react';
 
 function SignInput(props) {
 
-    // Переменные состояния ошибки
+    // Error state variables
     const isErrorMod = props.isError && "error"
     const isVisible = !props.isError && "hidden"
 

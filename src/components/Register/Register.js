@@ -10,7 +10,7 @@ function Register(props) {
 
     const useFormData = useForm()
 
-    // Обработчик формы
+    // Form handler
     const [isNameError, setIsNameError] = useState(false);
     const [isEmailError, setIsEmailError] = useState(false);
     const [isPasswordError, setIsPasswordError] = useState(false);
@@ -71,16 +71,16 @@ function Register(props) {
     return (
         <section className='register'>
             <Logo />
-            <Greetings text={'Добро пожаловать!'}/>
+            <Greetings text={'Welcome!'}/>
             <form className='register__form-container' onSubmit={handleSubmit}>
-                <SignInput text={'Имя'} name={'name'} type={'string'} err={"Строкой больше 2 символов и без пробела"} isError={isNameError} onChange={useFormData.handleChange} data={useFormData.values?.name}/>
+                <SignInput text={'Name'} name={'name'} type={'string'} err={"Must be a string with 2+ symbols and no spaces"} isError={isNameError} onChange={useFormData.handleChange} data={useFormData.values?.name}/>
 
-                <SignInput text={'E-mail'} name={'email'} type={'email'} err={"Некорректный Email"} isError={isEmailError} onChange={useFormData.handleChange} data={useFormData.values?.email}/>
+                <SignInput text={'E-mail'} name={'email'} type={'email'} err={"Incorrect Email"} isError={isEmailError} onChange={useFormData.handleChange} data={useFormData.values?.email}/>
 
-                <SignInput text={'Пароль'} name={'password'} type={'password'} err={"8+ знаков, хотя бы 1 заглавная, прописная, цифра"} isError={isPasswordError} onChange={useFormData.handleChange} data={useFormData.values?.password}/>
+                <SignInput text={'Password'} name={'password'} type={'password'} err={"8+ symbols, at least 1 uppercase, lowercase, digit"} isError={isPasswordError} onChange={useFormData.handleChange} data={useFormData.values?.password}/>
 
-                <SignSubmitBtn text={'Зарегистрироваться'} isError={isFormError}/>
-                <SignInfo text={'Уже зарегистрированы?'} actBtn={'Войти'} onSignChange={props.onSignChange}/>
+                <SignSubmitBtn text={'Register'} isError={isFormError}/>
+                <SignInfo text={'Already registered?'} actBtn={'Log In'} onSignChange={props.onSignChange}/>
             </form>
         </section>
     );

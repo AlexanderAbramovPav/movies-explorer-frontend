@@ -19,7 +19,7 @@ function Login(props) {
       })
     }
 
-    // Обработчик формы
+    // Form handler
     const [isFormError, setIsFormError] = useState(true);
 
     useEffect(() => {
@@ -33,14 +33,14 @@ function Login(props) {
     return (
         <section className='login'>
             <Logo />
-            <Greetings text={'Рады видеть!'}/>
+            <Greetings text={'Good to see you!'}/>
             <form className='login__form-container' onSubmit={handleSubmit}>
                 <SignInput text={'E-mail'} type={'email'} name={'email'} onChange={useFormData.handleChange} data={useFormData.values?.email}/>
 
-                <SignInput text={'Пароль'} type={'password'} name={'password'} onChange={useFormData.handleChange} data={useFormData.values?.password}/>
+                <SignInput text={'Password'} type={'password'} name={'password'} onChange={useFormData.handleChange} data={useFormData.values?.password}/>
 
-                <SignSubmitBtn text={'Войти'} isError={isFormError}/>
-                <SignInfo text={'Ещё не зарегистрированы?'} actBtn={'Регистрация'} onSignChange={props.onSignChange} />
+                <SignSubmitBtn text={'Log In'} isError={isFormError}/>
+                <SignInfo text={'Not registered yet?'} actBtn={'Register'} onSignChange={props.onSignChange} />
             </form>
         </section>
     );
