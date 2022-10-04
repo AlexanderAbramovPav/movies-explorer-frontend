@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import FindIcon from '../../images/find-icon.svg'
 import SearchIcon from '../../images/search-icon.svg'
 
 function SearchForm(props) {
     
-    // Проставка сохраненных поисков
+    // Defining saved searches
     const switchDefault = () => {
         if (props?.switchValue) {
             return JSON.parse(props?.switchValue)
@@ -16,7 +16,7 @@ function SearchForm(props) {
     const [inputChecked, setInputChecked] = useState(switchDefault);
 
 
-    // Обработка изменения инпута радиокнопки
+    // Processing of the radio button input change
     const inputSwitchHandler = async (e) => {
         if (e.target.checked) {
             await setInputChecked(true)
@@ -29,13 +29,13 @@ function SearchForm(props) {
         }
     };
 
-    // Обработка изменения инпута текста
+    // Processing text input changes
     const inputHandler = (e) => {
         const lowerCaseInput = e.target.value.toLowerCase();
         setInputText(lowerCaseInput);
     };
 
-    // Обработка клика поиска
+    // Processing a search click
     const handleSearchClick = (e) => {
         e.preventDefault();
         props.onSearch(inputText, inputChecked); 
@@ -45,16 +45,16 @@ function SearchForm(props) {
         <>
             <form className='searcher' onSubmit={handleSearchClick}>
                 <div className='searcher__container'>
-                    <img className='searcher__search-icon' src={SearchIcon} alt='Иконка лупы'/>
-                    <input className='searcher__input-movie' placeholder="Фильм" type='text' onChange={inputHandler} defaultValue={inputText}/>
-                    <button className='searcher__submit-btn' aria-label="Подтвердить действие" type="submit" name="submit-button"><img src={FindIcon} alt='Иконка поиска'/></button>
+                    <img className='searcher__search-icon' src={SearchIcon} alt='find'/>
+                    <input className='searcher__input-movie' placeholder="Movie" type='text' onChange={inputHandler} defaultValue={inputText}/>
+                    <button className='searcher__submit-btn' aria-label="submit" type="submit" name="submit-button"><img src={FindIcon} alt='Find icon'/></button>
                 </div>
                 <div className='searcher__switch-container'>
                     <label className="searcher__switch">
                         <input className="searcher__input-checkbox" type="checkbox" onChange={inputSwitchHandler} checked={inputChecked}/>
                         <span className="searcher__slider"></span>
                     </label>
-                    <p className="searcher__switch-text">Короткометражки</p>
+                    <p className="searcher__switch-text">Short movies</p>
                 </div>
             </form>
             <hr className="searcher__line"/>

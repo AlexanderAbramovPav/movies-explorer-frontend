@@ -36,7 +36,7 @@ function Movies(props) {
                     </> 
                 : <Preloader />
                 }
-                {!props.isEmptyList ? "" : <Greetings text={'Ничего не найдено'}/>}
+                {!props.isEmptyList ? "" : <Greetings text={'Nothing found'}/>}
             </main>  
             <Footer />
         </section>

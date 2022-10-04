@@ -41,12 +41,12 @@
 .project__time-container {
     display: flex;
     flex-direction: column;
-    width: 20%;
+    width: 34%;
     min-width: 100px;
 }
 
 .project__time-container:last-child {
-    width: 80%;
+    width: 66%;
 }
 
 .project__done {

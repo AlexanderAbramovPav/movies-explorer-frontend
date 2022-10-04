@@ -8,8 +8,8 @@ function Header(props) {
         <header className='header'>
             <Logo />
             <div className='header__container'>
-                <Link className='header__signup-btn' to={props.props.onRegister}>Регистрация</Link>
-                <Link className='header__signin-btn' to={props.props.onLogin}>Войти</Link>
+                <Link className='header__signup-btn' to={props.props.onRegister}>Register</Link>
+                <Link className='header__signin-btn' to={props.props.onLogin}>Log In</Link>
             </div>
         </header>
     );

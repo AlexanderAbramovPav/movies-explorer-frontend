@@ -27,7 +27,7 @@ function AccountHeader(props) {
 
     useEffect(() => {
 
-        // Анимация бургера исходя из ширины экрана + прячем бургер
+        // Burger animation based on the width of the screen + hiding the burger WIP
         const width = window.innerWidth;
 
         if (isChecked) {
@@ -61,18 +61,18 @@ function AccountHeader(props) {
 
             <div className="account-header__navbar-container">
                 <ul className="account-header__burger-items">
-                <li className='account-header__burger-item'><Link className={isMovies(location) === 'main' ? `account-header__burger-link account-header__burger-link_chosen` : `account-header__burger-link`} to={props.routeLinks.main}>Главная</Link></li>
-                    <li className='account-header__burger-item'><Link className={isMovies(location) === 'movies' ? `account-header__burger-link account-header__burger-link_chosen` : `account-header__burger-link`} to={props.routeLinks.movies}>Фильмы</Link></li>
-                    <li className='account-header__burger-item'><Link className={isMovies(location) === 'saved-movies' ? `account-header__burger-link account-header__burger-link_chosen` : `account-header__burger-link`} to={props.routeLinks.savedMovies}>Сохранённые фильмы</Link></li>
-                    <li className='account-header__burger-item'><Link className='account-header__text' to={props.routeLinks.profile}>Аккаунт</Link></li>
+                <li className='account-header__burger-item'><Link className={isMovies(location) === 'main' ? `account-header__burger-link account-header__burger-link_chosen` : `account-header__burger-link`} to={props.routeLinks.main}>Main</Link></li>
+                    <li className='account-header__burger-item'><Link className={isMovies(location) === 'movies' ? `account-header__burger-link account-header__burger-link_chosen` : `account-header__burger-link`} to={props.routeLinks.movies}>Movies</Link></li>
+                    <li className='account-header__burger-item'><Link className={isMovies(location) === 'saved-movies' ? `account-header__burger-link account-header__burger-link_chosen` : `account-header__burger-link`} to={props.routeLinks.savedMovies}>Saved movies</Link></li>
+                    <li className='account-header__burger-item'><Link className='account-header__text' to={props.routeLinks.profile}>Account</Link></li>
                 </ul>
             </div>
             <div className='account-header__full-navi'>
                 <div className='account-header__links-container'>
-                    <Link className={isMovies(location) === 'movies' ? `account-header__movies-btn account-header__movies-btn_chosen` : `account-header__movies-btn`} to={props.routeLinks.movies}>Фильмы</Link>
-                    <Link className={isMovies(location) === 'saved-movies' ? `account-header__movies-btn account-header__movies-btn_chosen` : `account-header__movies-btn`} to={props.routeLinks.savedMovies}>Сохранённые фильмы</Link>  
+                    <Link className={isMovies(location) === 'movies' ? `account-header__movies-btn account-header__movies-btn_chosen` : `account-header__movies-btn`} to={props.routeLinks.movies}>Movies</Link>
+                    <Link className={isMovies(location) === 'saved-movies' ? `account-header__movies-btn account-header__movies-btn_chosen` : `account-header__movies-btn`} to={props.routeLinks.savedMovies}>Saved movies</Link>  
                 </div>
-                <Link className='account-header__text' to={props.routeLinks.profile}>Аккаунт</Link>
+                <Link className='account-header__text' to={props.routeLinks.profile}>Account</Link>
             </div>
         </header>
     );

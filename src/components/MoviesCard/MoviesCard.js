@@ -6,7 +6,7 @@ import { BASE_MOVIES_URL } from '../../utils/MoviesApi.js'
 
 function MoviesCard(props) {
 
-    // Выбор иконки лайка
+    // Choosing a save icon
     const isSaved = props.userSavedMovies?.some(i => i.movieId === props.item.id);
 
     const Icon = () => {
@@ -19,15 +19,15 @@ function MoviesCard(props) {
         }
     }
 
-    // Подсчет длины фильма
+    // Counting the length of a movie
     const movieDuration = (props) => {
         if (props.item.duration / 60 < 1) {
-            return (props.item.duration % 60) + "м"
+            return (props.item.duration % 60) + "m"
         }
-        return Math.floor(props.item.duration / 60) + "ч " + (props.item.duration % 60) + "м"
+        return Math.floor(props.item.duration / 60) + "h " + (props.item.duration % 60) + "m"
     }
 
-    // Ссылка на картинку фильма
+    // Link to the picture of the movie
     const imgUrl = () => {
         if (!props.isProfile) {
             return BASE_MOVIES_URL + props.item.image.url;
@@ -36,7 +36,7 @@ function MoviesCard(props) {
     }
 
 
-    // Обработка нажатия на сохранить
+    // Processing of clicking on save
     const handleSaveClick = () => {
         props.onSave(props.item);
     }
@@ -44,11 +44,11 @@ function MoviesCard(props) {
     return (
         <div className='movie-card'>
             <div className='movie-card__container'>
-                <h2 className='movie-card__title'>{props.item.nameRU}</h2>
+                <h2 className='movie-card__title'>{props.item.nameEN}</h2>
                 <p className='movie-card__length'>{movieDuration(props)}</p>
-                <button className='movie-card__save-btn' type='button' onClick={handleSaveClick}><img className='movie-card__save-icon' src={Icon(props)} alt='Кнопка сохранения фильма'/></button>
+                <button className='movie-card__save-btn' type='button' onClick={handleSaveClick}><img className='movie-card__save-icon' src={Icon(props)} alt='Save movie button'/></button>
             </div>
-            <a className='movie-card__img-link' href={props.item.trailerLink} target="_blank" rel='noreferrer'><img className='movie-card__img' src={imgUrl(props)} alt='Картинка с переходом на трейлер'/></a>
+            <a className='movie-card__img-link' href={props.item.trailerLink} target="_blank" rel='noreferrer'><img className='movie-card__img' src={imgUrl(props)} alt='transition to the trailer'/></a>
         </div>
     );
 }

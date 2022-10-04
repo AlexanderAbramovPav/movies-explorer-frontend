@@ -8,7 +8,7 @@ function FindMoreBtn(props) {
 
     return (
         <div className='more-loader'>
-            <button className='more-loader__btn' type='button' onClick={handleMoreClick}>Ещё</button>
+            <button className='more-loader__btn' type='button' onClick={handleMoreClick}>More</button>
         </div>
     );
 }

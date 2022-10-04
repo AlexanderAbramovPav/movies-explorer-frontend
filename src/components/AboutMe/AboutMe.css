@@ -15,8 +15,10 @@
     padding: 0;
     margin: 0 0;
     width: 292px;
-    height: 352px;
+    max-height: 292px;
     max-width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 15px;
 }
 
 .about-me__name{
@@ -84,7 +86,7 @@
 
     .about-me__avatar {
         width: 255px;
-        height: 307px;
+        height: 255px;
         max-width: 100%;
         margin-left: 49px;
     }
@@ -129,7 +131,7 @@
 
     .about-me__avatar {
         width: 270px;
-        height: 327px;
+        height: 270px;
         max-width: 100%;
         margin-left: 49px;
     }
