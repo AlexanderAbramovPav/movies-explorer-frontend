@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
 import AccountHeader from '../AccountHeader/AccountHeader';
 import Greetings from '../Greetings/Greetings';
-import {CurrentUserContext} from '../../context/CurrentUserContext';
+import { useSelector } from 'react-redux';
 
 function Profile(props) {
 
-    const currentUser = useContext(CurrentUserContext);
+    const currentUser = useSelector(state => state.currentUser);
+    console.log(currentUser)
 
     return (
-        !currentUser ? '' :
+        currentUser.name === undefined ? '' :
         <section className='profile'>
             <AccountHeader routeLinks={props.routeLinks}/>
             <main className='profile__main'>

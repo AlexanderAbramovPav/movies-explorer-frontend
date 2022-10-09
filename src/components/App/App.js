@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { CurrentUserContext} from '../../context/CurrentUserContext';
-import { Route, Routes, Navigate, useNavigate, useLocation} from 'react-router-dom';
+import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import { updateCurrentUser } from '../../store/userReducer.js'
+import { useDispatch } from 'react-redux';
 import ProtectedRoutes from '../ProtectedRoutes/ProtectedRoutes.js';
 import Main from '../Main/Main';
 import Login from '../Login/Login';
@@ -13,6 +14,7 @@ import EditAccountInfoForm from '../EditAccountInfoForm/EditAccountInfoForm';
 import PopupInfo from '../PopupInfo/PopupInfo';
 import errorIcon from '../../images/icon-error.svg';
 import okIcon from '../../images/icon-ok.svg';
+
 
 import { getMovies } from '../../utils/MoviesApi.js'
 import * as api from '../../utils/MainApi.js';
@@ -46,9 +48,16 @@ function App() {
     main: '/'
   }
 
+  // Redux store
+  const dispach = useDispatch()
+
+  const updateUser = (userInfo) => {
+    dispach(updateCurrentUser(userInfo))
+  }
+
   // Constants user state
   const [loggedIn, setLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
+  // const [currentUser, setCurrentUser] = useState(null);
 
   // Constants Search
   const [userCards, setUserCards] = useState(null);
@@ -166,7 +175,7 @@ function App() {
     if (loggedIn) {
       Promise.all([api.getUserInfo(), api.getInitialMovies()])
       .then(([currentUser, savedMovies]) => {
-        setCurrentUser(currentUser);
+        updateUser(currentUser); // Redux
         setUserSavedMovies(savedMovies);
       })
       .catch((err) =>
@@ -222,7 +231,7 @@ function App() {
   function handleUpdateUser(data) {
     api.patchUserInfo(data.values)
     .then((updateInfo) => {
-      setCurrentUser(updateInfo);
+      updateUser(updateInfo); // Redux
       setIsEditPopupOpen(false);
       handleSignSubmitPopup({
         icon: okIcon, 
@@ -543,76 +552,75 @@ function App() {
   const moviesList = getMoviesList();
 
   return (
-    
-    <CurrentUserContext.Provider value={currentUser}>
+    <>
       <Routes>
-        <Route path={routes.main} element={
-          <Main 
-            onLogin={routes.signin} 
-            onRegister={routes.signup}
-            isLogged={localStorage.getItem(localStorageItems.isLogged)}
-            routeLinks={routes}
-            />} 
-          />
-        <Route path={routes.signup} element={
-          <Register 
-            onSignChange={routes.signin} 
-            onRegister={handleRegister}
+      <Route path={routes.main} element={
+        <Main 
+          onLogin={routes.signin} 
+          onRegister={routes.signup}
+          isLogged={localStorage.getItem(localStorageItems.isLogged)}
+          routeLinks={routes}
           />} 
         />
-        <Route path={routes.signin} element={
-          <Login 
-            onSignChange={routes.signup} 
-            onLogin={handleLogin}
-          />} 
+      <Route path={routes.signup} element={
+        <Register 
+          onSignChange={routes.signin} 
+          onRegister={handleRegister}
+        />} 
+      />
+      <Route path={routes.signin} element={
+        <Login 
+          onSignChange={routes.signup} 
+          onLogin={handleLogin}
+        />} 
+      />
+              
+      <Route path="*" element={<Error404 />} />
+
+      <Route element={<ProtectedRoutes loggedIn={localStorage.getItem(localStorageItems.isLogged)}/>}>
+        
+        <Route path={routes.profile} element={
+          localStorage.getItem(localStorageItems.isLogged) ?
+          (<Profile 
+            routeLinks={routes} 
+            onLogout={signOut} 
+            onUpdateUserClick={handleEditUserClick}
+          />) : (<Navigate replace to={routes.main} />)}
         />
-                
-        <Route path="*" element={<Error404 />} />
 
-        <Route element={<ProtectedRoutes loggedIn={localStorage.getItem(localStorageItems.isLogged)}/>}>
-          
-          <Route path={routes.profile} element={
-            localStorage.getItem(localStorageItems.isLogged) ?
-            (<Profile 
-              routeLinks={routes} 
-              onLogout={signOut} 
-              onUpdateUserClick={handleEditUserClick}
-            />) : (<Navigate replace to={routes.main} />)}
-          />
+        <Route path={routes.movies} element={
+          localStorage.getItem(localStorageItems.isLogged) ?
+          (<Movies 
+            routeLinks={routes} 
+            userCards={userCards} 
+            onSearch={handleMovieSearchClick} 
+            onMore={handleMoreClick} 
+            isLoading={isLoading} 
+            isMoreLoading={isMoreLoading} 
+            isMoreMoviesExists={isMoreMoviesExists} 
+            isEmptyList={isEmptyList} 
+            onSave={handleMovieSave}
+            searchValue={searchInputValue}
+            switchValue={searchSwitchValue}
+            userSavedMovies={userSavedMovies}
+          />) : (<Navigate replace to={routes.main} />)}
+        /> 
 
-          <Route path={routes.movies} element={
-            localStorage.getItem(localStorageItems.isLogged) ?
-            (<Movies 
-              routeLinks={routes} 
-              userCards={userCards} 
-              onSearch={handleMovieSearchClick} 
-              onMore={handleMoreClick} 
-              isLoading={isLoading} 
-              isMoreLoading={isMoreLoading} 
-              isMoreMoviesExists={isMoreMoviesExists} 
-              isEmptyList={isEmptyList} 
-              onSave={handleMovieSave}
-              searchValue={searchInputValue}
-              switchValue={searchSwitchValue}
-              userSavedMovies={userSavedMovies}
-            />) : (<Navigate replace to={routes.main} />)}
-          /> 
+        <Route path={routes.savedMovies} element={
+          localStorage.getItem(localStorageItems.isLogged) ?
+          (<SavedMovies 
+            routeLinks={routes} 
+            userCards={moviesList}
+            onSearch={handleSavedMovieSearchClick} 
+            onSave={handleSavedMoviesDeleteClick}
+            isLoading={isLoading} 
+            isEmptyList={isEmptySavedList}
+            searchValue={searchSavedInputValue}
+            switchValue={searchSavedSwitchValue}
+          />) : (<Navigate replace to={routes.main} />)} 
+        />
 
-          <Route path={routes.savedMovies} element={
-            localStorage.getItem(localStorageItems.isLogged) ?
-            (<SavedMovies 
-              routeLinks={routes} 
-              userCards={moviesList}
-              onSearch={handleSavedMovieSearchClick} 
-              onSave={handleSavedMoviesDeleteClick}
-              isLoading={isLoading} 
-              isEmptyList={isEmptySavedList}
-              searchValue={searchSavedInputValue}
-              switchValue={searchSavedSwitchValue}
-            />) : (<Navigate replace to={routes.main} />)} 
-          />
-
-        </Route>
+      </Route>
 
       </Routes>
 
@@ -632,8 +640,8 @@ function App() {
         selectedTooltip={selectedTooltip} 
         onOutClick={handleOverlay}
       />
+    </>
 
-    </CurrentUserContext.Provider>  
   );
 }
 

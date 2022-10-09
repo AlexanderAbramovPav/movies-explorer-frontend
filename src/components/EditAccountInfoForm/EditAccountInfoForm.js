@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect } from 'react';
 import '../InfoTooltip/InfoTooltip.css'
 import SignInput from '../SignInput/SignInput';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import useForm from '../../hooks/useForm';
-import {CurrentUserContext} from '../../context/CurrentUserContext';
+import { useSelector } from 'react-redux';
 
 function EditAccountInfoForm(props) {
 
-    const currentUser = useContext(CurrentUserContext);
+    const currentUser = useSelector(state => state.currentUser);
     const useFormData = useForm()
 
     // Form handler
