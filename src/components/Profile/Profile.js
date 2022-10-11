@@ -1,15 +1,19 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import AccountHeader from '../AccountHeader/AccountHeader';
 import Greetings from '../Greetings/Greetings';
-import { useSelector } from 'react-redux';
+import { useTypedSelector } from "../../hooks/useTypedSelector.ts";
 
 function Profile(props) {
 
-    const currentUser = useSelector(state => state.currentUser);
-    console.log(currentUser)
+    //Redux state management
+    const currentUser = useTypedSelector(state => state.currentUser);
+
+    if (currentUser.error) {
+      console.log(currentUser.error)
+    }
 
     return (
-        currentUser.name === undefined ? '' :
+        currentUser.name === undefined || currentUser.name === "" ? '' :
         <section className='profile'>
             <AccountHeader routeLinks={props.routeLinks}/>
             <main className='profile__main'>

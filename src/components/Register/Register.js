@@ -5,6 +5,7 @@ import SignInput from '../SignInput/SignInput'
 import SignSubmitBtn from '../SignSubmitBtn/SignSubmitBtn'
 import SignInfo from '../SignInfo/SignInfo'
 import useForm from '../../hooks/useForm';
+import { EMAIL_REG_EXP, NAME_REG_EXP, PASSWORD_REG_EXP } from '../../utils/constants'
 
 function Register(props) {
 
@@ -16,15 +17,12 @@ function Register(props) {
     const [isPasswordError, setIsPasswordError] = useState(false);
     const [isFormError, setIsFormError] = useState(true);
 
-    const emailRegExp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    const passwordRegExp = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,}$/;
-    const nameRegExp = /^[a-zA-Zа-яА-ЯёЁ]{2,}$/;
 
     useEffect(() => {
       if (useFormData.values?.name === undefined) {
         setIsNameError(false);
       }
-      else if (!nameRegExp.test(useFormData.values?.name)) {
+      else if (!NAME_REG_EXP.test(useFormData.values?.name)) {
         setIsNameError(true);
       } else {setIsNameError(false)}
     }, [useFormData.values?.name])
@@ -33,7 +31,7 @@ function Register(props) {
       if (useFormData.values?.email === undefined) {
         setIsEmailError(false);
       }
-      else if (!emailRegExp.test(useFormData.values?.email)) {
+      else if (!EMAIL_REG_EXP.test(useFormData.values?.email)) {
         setIsEmailError(true);
       } else {setIsEmailError(false)}
     }, [useFormData.values?.email])
@@ -42,7 +40,7 @@ function Register(props) {
       if (useFormData.values?.password === undefined) {
         setIsPasswordError(false);
       }
-      else if (!passwordRegExp.test(useFormData.values?.password)) {
+      else if (!PASSWORD_REG_EXP.test(useFormData.values?.password)) {
         setIsPasswordError(true);
       } else {setIsPasswordError(false)}
     }, [useFormData.values?.password])

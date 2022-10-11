@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
-import { updateCurrentUser } from '../../store/userReducer.js'
-import { useDispatch } from 'react-redux';
+import { useActions } from "../../hooks/useActions.ts";
+
 import ProtectedRoutes from '../ProtectedRoutes/ProtectedRoutes.js';
 import Main from '../Main/Main';
 import Login from '../Login/Login';
@@ -14,11 +14,10 @@ import EditAccountInfoForm from '../EditAccountInfoForm/EditAccountInfoForm';
 import PopupInfo from '../PopupInfo/PopupInfo';
 import errorIcon from '../../images/icon-error.svg';
 import okIcon from '../../images/icon-ok.svg';
-
+import {LOCAL_STORAGE_ITEMS, ROUTES, URL_REG_EXP, TIP_TITTLES} from '../../utils/constants'
 
 import { getMovies } from '../../utils/MoviesApi.js'
 import * as api from '../../utils/MainApi.js';
-
 
 import './App.css';
 
@@ -26,45 +25,23 @@ function App() {
 
   let navigate = useNavigate();
 
-  // Constants LS
-  const localStorageItems = {
-    allFoundMovies: 'allFoundMovies', 
-    foundFilms: 'foundFilms',
-    searchFilter: 'searchFilter', 
-    isShort: 'isShort',
-    savedFoundFilms: 'savedFoundFilms',
-    savedSearchFilter: 'savedSearchFilter',
-    savedIsShort: 'savedIsShort',
-    isLogged: 'isLogged',
-  }
-
-  // Constants routes
-  const routes = {
-    profile: '/profile', 
-    movies: '/movies', 
-    savedMovies: '/saved-movies',
-    signin: '/signin',
-    signup: '/signup',
-    main: '/'
-  }
-
   // Redux store
-  const dispach = useDispatch()
+
+  const {updateCurrentUser} = useActions()
 
   const updateUser = (userInfo) => {
-    dispach(updateCurrentUser(userInfo))
+    updateCurrentUser(userInfo)
   }
 
   // Constants user state
   const [loggedIn, setLoggedIn] = useState(false);
-  // const [currentUser, setCurrentUser] = useState(null);
 
   // Constants Search
   const [userCards, setUserCards] = useState(null);
-  const [foundMovies, setFoundMovies] = useState(JSON.parse(localStorage.getItem(localStorageItems.foundFilms)));
-  const [allFoundMovies, setAllFoundMovies] = useState(JSON.parse(localStorage.getItem(localStorageItems.allFoundMovies)));
-  const [searchInputValue, setSearchInputValue] = useState(localStorage.getItem(localStorageItems.searchFilter) || "");
-  const [searchSwitchValue, setSearchSwitchValue] = useState(localStorage.getItem(localStorageItems.isShort) || "");
+  const [foundMovies, setFoundMovies] = useState(JSON.parse(localStorage.getItem(LOCAL_STORAGE_ITEMS.foundFilms)));
+  const [allFoundMovies, setAllFoundMovies] = useState(JSON.parse(localStorage.getItem(LOCAL_STORAGE_ITEMS.allFoundMovies)));
+  const [searchInputValue, setSearchInputValue] = useState(localStorage.getItem(LOCAL_STORAGE_ITEMS.searchFilter) || "");
+  const [searchSwitchValue, setSearchSwitchValue] = useState(localStorage.getItem(LOCAL_STORAGE_ITEMS.isShort) || "");
   
   // Constants Search results
   const [isEmptyList, setIsEmptyList] = useState(false);
@@ -75,9 +52,9 @@ function App() {
   // Constants Search results in Saved
   const [isEmptySavedList, setIsEmptySavedList] = useState(false);
   const [userSavedMovies, setUserSavedMovies] = useState(null);
-  const [savedFoundMovies, setSavedFoundMovies] = useState(JSON.parse(localStorage.getItem(localStorageItems.savedFoundFilms)));
-  const [searchSavedInputValue, setSearchSavedInputValue] = useState(localStorage.getItem(localStorageItems.savedSearchFilter || ""));
-  const [searchSavedSwitchValue, setSearchSavedSwitchValue] = useState(localStorage.getItem(localStorageItems.savedIsShort) || "");
+  const [savedFoundMovies, setSavedFoundMovies] = useState(JSON.parse(localStorage.getItem(LOCAL_STORAGE_ITEMS.savedFoundFilms)));
+  const [searchSavedInputValue, setSearchSavedInputValue] = useState(localStorage.getItem(LOCAL_STORAGE_ITEMS.savedSearchFilter || ""));
+  const [searchSavedSwitchValue, setSearchSavedSwitchValue] = useState(localStorage.getItem(LOCAL_STORAGE_ITEMS.savedIsShort) || "");
 
   // Constants popups
   const [selectedTooltip, setSelectedTooltip] = useState(null);
@@ -127,7 +104,7 @@ function App() {
       if (res) {
           handleSignSubmitPopup({
             icon: okIcon, 
-            tipTitle: "You have successfully registered!"
+            tipTitle: TIP_TITTLES.ERROR_GEN
           });
           setTimeout(() => {handleLogin(useFormData)}, 1000)
         }
@@ -136,7 +113,7 @@ function App() {
       console.log(err)
       handleSignSubmitPopup({
         icon: errorIcon,
-        tipTitle: "Something went wrong! Try again."
+        tipTitle: TIP_TITTLES.ERROR_GEN
       })
     });
   }
@@ -152,11 +129,11 @@ function App() {
             email: useFormData.values.email,
             name: useFormData.values.name,
           })
-          localStorage.setItem(localStorageItems.isLogged, 'true')
-          navigate(routes.movies);
+          localStorage.setItem(LOCAL_STORAGE_ITEMS.isLogged, 'true')
+          navigate(ROUTES.movies);
 
           setTimeout(() => {
-            localStorage.removeItem(localStorageItems.isLogged);
+            localStorage.removeItem(LOCAL_STORAGE_ITEMS.isLogged);
           }, 3600000)
         }
     })
@@ -164,7 +141,7 @@ function App() {
       console.log(err)
       handleSignSubmitPopup({
         icon: errorIcon,
-        tipTitle: "Something went wrong! Try again."
+        tipTitle: TIP_TITTLES.ERROR_GEN
       })
     });
   }
@@ -186,18 +163,18 @@ function App() {
 
   // Clear LS info
   function deleteLocalStorageInfo() {
-    localStorage.removeItem(localStorageItems.foundFilms);
-    localStorage.removeItem(localStorageItems.allFoundMovies);
-    localStorage.removeItem(localStorageItems.searchFilter);
-    localStorage.removeItem(localStorageItems.isShort);
-    localStorage.removeItem(localStorageItems.savedFoundFilms);
-    localStorage.removeItem(localStorageItems.savedSearchFilter);
-    localStorage.removeItem(localStorageItems.savedIsShort);
+    localStorage.removeItem(LOCAL_STORAGE_ITEMS.foundFilms);
+    localStorage.removeItem(LOCAL_STORAGE_ITEMS.allFoundMovies);
+    localStorage.removeItem(LOCAL_STORAGE_ITEMS.searchFilter);
+    localStorage.removeItem(LOCAL_STORAGE_ITEMS.isShort);
+    localStorage.removeItem(LOCAL_STORAGE_ITEMS.savedFoundFilms);
+    localStorage.removeItem(LOCAL_STORAGE_ITEMS.savedSearchFilter);
+    localStorage.removeItem(LOCAL_STORAGE_ITEMS.savedIsShort);
   }
 
   // Checktoken after reload
   function handleGetContent() {
-    if (localStorage.getItem(localStorageItems.isLogged)) {
+    if (localStorage.getItem(LOCAL_STORAGE_ITEMS.isLogged)) {
       api.checkToken()
       .then((res) => {
         if (res) {
@@ -208,7 +185,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err)
-        localStorage.removeItem(localStorageItems.isLogged);
+        localStorage.removeItem(LOCAL_STORAGE_ITEMS.isLogged);
         deleteLocalStorageInfo()
         }
       );
@@ -235,14 +212,14 @@ function App() {
       setIsEditPopupOpen(false);
       handleSignSubmitPopup({
         icon: okIcon, 
-        tipTitle: "Profile has been successfully updated"
+        tipTitle: TIP_TITTLES.ERROR_GEN
       });
     })
     .catch((err) => {
         console.log(err);
         handleSignSubmitPopup({
           icon: errorIcon,
-          tipTitle: "An error occurred during the request. There may be a connection problem or the server is unavailable. Wait a bit and try again"
+          tipTitle: TIP_TITTLES.ERROR_SERVER
         })
     });
   };
@@ -250,7 +227,7 @@ function App() {
 
   // Log out
   function signOut() {
-    localStorage.removeItem(localStorageItems.isLogged);
+    localStorage.removeItem(LOCAL_STORAGE_ITEMS.isLogged);
     deleteLocalStorageInfo()
 
     setLoggedIn({
@@ -258,7 +235,7 @@ function App() {
     })
 
     api.logout()
-    .then(() => navigate(routes.main))
+    .then(() => navigate(ROUTES.main))
   }
 
 
@@ -317,7 +294,7 @@ function App() {
 
         handleSignSubmitPopup({
           icon: errorIcon,
-          tipTitle: "You need to enter a keyword"
+          tipTitle: TIP_TITTLES.ERROR_SEARCH
         })
 
       } else if (allFoundMovies) {
@@ -329,9 +306,9 @@ function App() {
           const foundFilteredMovies = filterMovies(allFoundMovies, searchFilter, isShort);
           setFoundMovies(foundFilteredMovies);
 
-          localStorage.setItem(localStorageItems.foundFilms, JSON.stringify(foundFilteredMovies));
-          localStorage.setItem(localStorageItems.searchFilter, searchFilter);
-          localStorage.setItem(localStorageItems.isShort, isShort);
+          localStorage.setItem(LOCAL_STORAGE_ITEMS.foundFilms, JSON.stringify(foundFilteredMovies));
+          localStorage.setItem(LOCAL_STORAGE_ITEMS.searchFilter, searchFilter);
+          localStorage.setItem(LOCAL_STORAGE_ITEMS.isShort, isShort);
           setSearchInputValue(searchFilter);
           setSearchSwitchValue(isShort);
 
@@ -346,9 +323,9 @@ function App() {
           const foundFilteredMovies = filterMovies(foundMovies, searchFilter, isShort);
           setFoundMovies(foundFilteredMovies);
 
-          localStorage.setItem(localStorageItems.foundFilms, JSON.stringify(foundFilteredMovies));
-          localStorage.setItem(localStorageItems.searchFilter, searchFilter);
-          localStorage.setItem(localStorageItems.isShort, isShort);
+          localStorage.setItem(LOCAL_STORAGE_ITEMS.foundFilms, JSON.stringify(foundFilteredMovies));
+          localStorage.setItem(LOCAL_STORAGE_ITEMS.searchFilter, searchFilter);
+          localStorage.setItem(LOCAL_STORAGE_ITEMS.isShort, isShort);
           setSearchInputValue(searchFilter);
           setSearchSwitchValue(isShort);
         }
@@ -357,7 +334,7 @@ function App() {
       console.log(err);
       handleSignSubmitPopup({
         icon: errorIcon,
-        tipTitle: "An error occurred during the request. There may be a connection problem or the server is unavailable. Wait a bit and try again"
+        tipTitle: TIP_TITTLES.ERROR_SERVER
       })
       setIsLoading(false)
     }
@@ -366,7 +343,7 @@ function App() {
   // When receiving films, we receive cards
   useEffect(() => {
     if (allFoundMovies) {
-      localStorage.setItem(localStorageItems.allFoundMovies, JSON.stringify(allFoundMovies));
+      localStorage.setItem(LOCAL_STORAGE_ITEMS.allFoundMovies, JSON.stringify(allFoundMovies));
     }
   }, [allFoundMovies])
 
@@ -415,10 +392,8 @@ function App() {
   // Adding/removing cards to saved in Movies
   function handleMovieSave(movie) {
 
-    const urlRegExp = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
-
-    if (!urlRegExp.test(movie.trailerLink)) {
-      movie.trailerLink = "https://www.youtube.com"
+    if (!URL_REG_EXP.test(movie.trailerLink)) {
+      movie.trailerLink = ROUTES.youtube
     }
 
     console.log()
@@ -431,11 +406,11 @@ function App() {
       if (isLiked) {
         setUserSavedMovies((state) => state.filter((m) => m.movieId !== movie.id))
 
-        if (localStorageItems.savedFoundFilms > 0) {
-          const foundSavedMoviesLS = JSON.parse(localStorage.getItem(localStorageItems.savedFoundFilms));
+        if (LOCAL_STORAGE_ITEMS.savedFoundFilms > 0) {
+          const foundSavedMoviesLS = JSON.parse(localStorage.getItem(LOCAL_STORAGE_ITEMS.savedFoundFilms));
           const changedFoundMovies = foundSavedMoviesLS.filter((m) => m.movieId !== movie.movieId);
           setSavedFoundMovies(changedFoundMovies)
-          localStorage.setItem(localStorageItems.savedFoundFilms, JSON.stringify(changedFoundMovies));
+          localStorage.setItem(LOCAL_STORAGE_ITEMS.savedFoundFilms, JSON.stringify(changedFoundMovies));
         }
         
       } else {
@@ -446,7 +421,7 @@ function App() {
         console.log(err);
         handleSignSubmitPopup({
           icon: errorIcon,
-          tipTitle: "An error occurred during the request. There may be a connection problem or the server is unavailable. Wait a bit and try again"
+          tipTitle: TIP_TITTLES.ERROR_SERVER
         })
     });
   } 
@@ -460,11 +435,11 @@ function App() {
 
       setUserSavedMovies((state) => state.filter((m) => m.movieId !== movie.movieId))
 
-      if (localStorageItems.savedFoundFilms > 0) {
-        const foundSavedMoviesLS = JSON.parse(localStorage.getItem(localStorageItems.savedFoundFilms));
+      if (LOCAL_STORAGE_ITEMS.savedFoundFilms > 0) {
+        const foundSavedMoviesLS = JSON.parse(localStorage.getItem(LOCAL_STORAGE_ITEMS.savedFoundFilms));
         const changedFoundMovies = foundSavedMoviesLS.filter((m) => m.movieId !== movie.movieId);
         setSavedFoundMovies(changedFoundMovies)
-        localStorage.setItem(localStorageItems.savedFoundFilms, JSON.stringify(changedFoundMovies));
+        localStorage.setItem(LOCAL_STORAGE_ITEMS.savedFoundFilms, JSON.stringify(changedFoundMovies));
       }
       
     })
@@ -472,7 +447,7 @@ function App() {
         console.log(err);
         handleSignSubmitPopup({
           icon: errorIcon,
-          tipTitle: "An error occurred during the request. There may be a connection problem or the server is unavailable. Wait a bit and try again"
+          tipTitle: TIP_TITTLES.ERROR_SERVER
         })
     });
   }
@@ -494,9 +469,9 @@ function App() {
           setIsEmptySavedList(true);
         }
 
-        localStorage.setItem(localStorageItems.savedFoundFilms, JSON.stringify(foundFilteredMovies));
-        localStorage.setItem(localStorageItems.savedSearchFilter, searchFilter);
-        localStorage.setItem(localStorageItems.savedIsShort, isShort);
+        localStorage.setItem(LOCAL_STORAGE_ITEMS.savedFoundFilms, JSON.stringify(foundFilteredMovies));
+        localStorage.setItem(LOCAL_STORAGE_ITEMS.savedSearchFilter, searchFilter);
+        localStorage.setItem(LOCAL_STORAGE_ITEMS.savedIsShort, isShort);
 
         setSearchSavedInputValue(searchFilter);
         setSearchSavedSwitchValue(isShort);
@@ -505,7 +480,7 @@ function App() {
       console.log(err);
       handleSignSubmitPopup({
         icon: errorIcon,
-        tipTitle: "An error occurred during the request. There may be a connection problem or the server is unavailable. Wait a bit and try again"
+        tipTitle: TIP_TITTLES.ERROR_SERVER
       })
       setIsLoading(false)
     }
@@ -524,10 +499,10 @@ function App() {
 
   // When restarting, we get the status of the saved search result
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem(localStorageItems.savedFoundFilms)) === null)
+    if (JSON.parse(localStorage.getItem(LOCAL_STORAGE_ITEMS.savedFoundFilms)) === null)
     {
       setIsEmptySavedList(false);
-    } else if (JSON.parse(localStorage.getItem(localStorageItems.savedFoundFilms)) < 1) {
+    } else if (JSON.parse(localStorage.getItem(LOCAL_STORAGE_ITEMS.savedFoundFilms)) < 1) {
       setIsEmptySavedList(true)
     } else {
       setIsEmptySavedList(false)
@@ -537,61 +512,62 @@ function App() {
 
   // Select the list of saved cards based on the filter and deletion
   const getMoviesList = () => {
-    if (localStorage.getItem(localStorageItems.savedSearchFilter) === null & localStorage.getItem(localStorageItems.savedIsShort) === null) 
+    if (localStorage.getItem(LOCAL_STORAGE_ITEMS.savedSearchFilter) === null & localStorage.getItem(LOCAL_STORAGE_ITEMS.savedIsShort) === null) 
     {
       return userSavedMovies
     } else if ((
-      (localStorage.getItem(localStorageItems.savedSearchFilter) === "") || (localStorage.getItem(localStorageItems.savedSearchFilter) === null)
-      ) & localStorage.getItem(localStorageItems.savedIsShort) === 'false') {
+      (localStorage.getItem(LOCAL_STORAGE_ITEMS.savedSearchFilter) === "") || (localStorage.getItem(LOCAL_STORAGE_ITEMS.savedSearchFilter) === null)
+      ) & localStorage.getItem(LOCAL_STORAGE_ITEMS.savedIsShort) === 'false') {
       return userSavedMovies
     } else {
       return savedFoundMovies
     }
       
   }
+  
   const moviesList = getMoviesList();
 
   return (
     <>
       <Routes>
-      <Route path={routes.main} element={
+      <Route path={ROUTES.main} element={
         <Main 
-          onLogin={routes.signin} 
-          onRegister={routes.signup}
-          isLogged={localStorage.getItem(localStorageItems.isLogged)}
-          routeLinks={routes}
+          onLogin={ROUTES.signin} 
+          onRegister={ROUTES.signup}
+          isLogged={localStorage.getItem(LOCAL_STORAGE_ITEMS.isLogged)}
+          routeLinks={ROUTES}
           />} 
         />
-      <Route path={routes.signup} element={
+      <Route path={ROUTES.signup} element={
         <Register 
-          onSignChange={routes.signin} 
+          onSignChange={ROUTES.signin} 
           onRegister={handleRegister}
         />} 
       />
-      <Route path={routes.signin} element={
+      <Route path={ROUTES.signin} element={
         <Login 
-          onSignChange={routes.signup} 
+          onSignChange={ROUTES.signup} 
           onLogin={handleLogin}
         />} 
       />
               
       <Route path="*" element={<Error404 />} />
 
-      <Route element={<ProtectedRoutes loggedIn={localStorage.getItem(localStorageItems.isLogged)}/>}>
+      <Route element={<ProtectedRoutes loggedIn={localStorage.getItem(LOCAL_STORAGE_ITEMS.isLogged)}/>}>
         
-        <Route path={routes.profile} element={
-          localStorage.getItem(localStorageItems.isLogged) ?
+        <Route path={ROUTES.profile} element={
+          localStorage.getItem(LOCAL_STORAGE_ITEMS.isLogged) ?
           (<Profile 
-            routeLinks={routes} 
+            routeLinks={ROUTES} 
             onLogout={signOut} 
             onUpdateUserClick={handleEditUserClick}
-          />) : (<Navigate replace to={routes.main} />)}
+          />) : (<Navigate replace to={ROUTES.main} />)}
         />
 
-        <Route path={routes.movies} element={
-          localStorage.getItem(localStorageItems.isLogged) ?
+        <Route path={ROUTES.movies} element={
+          localStorage.getItem(LOCAL_STORAGE_ITEMS.isLogged) ?
           (<Movies 
-            routeLinks={routes} 
+            routeLinks={ROUTES} 
             userCards={userCards} 
             onSearch={handleMovieSearchClick} 
             onMore={handleMoreClick} 
@@ -603,13 +579,13 @@ function App() {
             searchValue={searchInputValue}
             switchValue={searchSwitchValue}
             userSavedMovies={userSavedMovies}
-          />) : (<Navigate replace to={routes.main} />)}
+          />) : (<Navigate replace to={ROUTES.main} />)}
         /> 
 
-        <Route path={routes.savedMovies} element={
-          localStorage.getItem(localStorageItems.isLogged) ?
+        <Route path={ROUTES.savedMovies} element={
+          localStorage.getItem(LOCAL_STORAGE_ITEMS.isLogged) ?
           (<SavedMovies 
-            routeLinks={routes} 
+            routeLinks={ROUTES} 
             userCards={moviesList}
             onSearch={handleSavedMovieSearchClick} 
             onSave={handleSavedMoviesDeleteClick}
@@ -617,7 +593,7 @@ function App() {
             isEmptyList={isEmptySavedList}
             searchValue={searchSavedInputValue}
             switchValue={searchSavedSwitchValue}
-          />) : (<Navigate replace to={routes.main} />)} 
+          />) : (<Navigate replace to={ROUTES.main} />)} 
         />
 
       </Route>

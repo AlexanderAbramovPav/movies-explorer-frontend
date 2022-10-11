@@ -3,11 +3,19 @@ import '../InfoTooltip/InfoTooltip.css'
 import SignInput from '../SignInput/SignInput';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import useForm from '../../hooks/useForm';
-import { useSelector } from 'react-redux';
+import { useTypedSelector } from "../../hooks/useTypedSelector.ts";
+import { EMAIL_REG_EXP, NAME_REG_EXP } from '../../utils/constants'
+
 
 function EditAccountInfoForm(props) {
 
-    const currentUser = useSelector(state => state.currentUser);
+    //Redux state management
+    const currentUser = useTypedSelector(state => state.currentUser);
+
+    if (currentUser.error) {
+      console.log(currentUser.error)
+    }
+
     const useFormData = useForm()
 
     // Form handler
@@ -15,14 +23,11 @@ function EditAccountInfoForm(props) {
     const [isEmailError, setIsEmailError] = useState(true);
     const [isFormError, setIsFormError] = useState(true);
 
-    const emailRegExp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    const nameRegExp = /^[a-zA-Zа-яА-ЯёЁ]{2,}$/;
-
     useEffect(() => {
       if (useFormData.values?.name === undefined) {
         setIsNameError(false);
       }
-      else if (!nameRegExp.test(useFormData.values?.name)) {
+      else if (!NAME_REG_EXP.test(useFormData.values?.name)) {
         setIsNameError(true);
       } else {setIsNameError(false)}
 
@@ -36,7 +41,7 @@ function EditAccountInfoForm(props) {
       if (useFormData.values?.email === undefined) {
         setIsEmailError(false);
       }
-      else if (!emailRegExp.test(useFormData.values?.email)) {
+      else if (!EMAIL_REG_EXP.test(useFormData.values?.email)) {
         setIsEmailError(true);
       } else {
         setIsEmailError(false);
