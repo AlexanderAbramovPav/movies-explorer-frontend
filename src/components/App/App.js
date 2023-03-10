@@ -98,7 +98,7 @@ function App() {
 
   // Register
   function handleRegister(useFormData) {
-    console.log(useFormData.values.password);
+
     api.register(useFormData.values.password, useFormData.values.email, useFormData.values.name)
     .then((res) => {
       if (res) {
@@ -395,8 +395,6 @@ function App() {
     if (!URL_REG_EXP.test(movie.trailerLink)) {
       movie.trailerLink = ROUTES.youtube
     }
-
-    console.log()
 
     const isLiked = userSavedMovies.some(i => i.movieId === movie.id);
     const savedCard = userSavedMovies.find(i => i.movieId === movie.id);
