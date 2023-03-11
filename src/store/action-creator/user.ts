@@ -7,7 +7,7 @@ export const updateCurrentUser = (payload) => {
             await dispatch({type: UserActionTypes.UPDATE_USER, payload})
         }
         catch (e) {
-            dispatch({type: UserActionTypes.UPDATE_USER_ERROR, payload: 'Произошла ошибка при загрузке информации'})
+            dispatch({type: UserActionTypes.UPDATE_USER_ERROR, payload: 'There is a mistake with updating the information'})
         }
         
     }
