@@ -20,6 +20,6 @@ In the process of creating the project, the following approaches and technologie
 ## Link to the full project in production:
 https://lovemovies.nomoredomains.sbs/
 
-## Futher steps:
+## Further steps:
 * Add movie description on click
 * Add filter by genre
