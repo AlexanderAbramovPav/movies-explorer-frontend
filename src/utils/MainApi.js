@@ -1,6 +1,6 @@
 import {BASE_MOVIES_URL} from './MoviesApi.js'
 
-export const BASE_URL = 'https://api.lovemovies.nomoredomains.sbs';
+export const BASE_URL = 'https://movies-explorer-api-iota.vercel.app';
 
 export const getServerStatus = (res) => {
     if (res.ok) {
