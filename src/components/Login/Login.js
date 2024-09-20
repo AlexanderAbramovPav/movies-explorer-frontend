@@ -14,8 +14,8 @@ function Login(props) {
       e.preventDefault()
       props.onLogin(useFormData);
       useFormData.setValues({
-        email: '',
-        password: ''
+        email: null,
+        password: null
       })
     }
 
@@ -36,9 +36,7 @@ function Login(props) {
             <Greetings text={'Good to see you!'}/>
             <form className='login__form-container' onSubmit={handleSubmit}>
                 <SignInput text={'E-mail'} type={'email'} name={'email'} onChange={useFormData.handleChange} data={useFormData.values?.email}/>
-
                 <SignInput text={'Password'} type={'password'} name={'password'} onChange={useFormData.handleChange} data={useFormData.values?.password}/>
-
                 <SignSubmitBtn text={'Log In'} isError={isFormError}/>
                 <SignInfo text={'Not registered yet?'} actBtn={'Register'} onSignChange={props.onSignChange} />
             </form>
