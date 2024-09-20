@@ -104,7 +104,7 @@ function App() {
       if (res) {
           handleSignSubmitPopup({
             icon: okIcon, 
-            tipTitle: TIP_TITTLES.ERROR_GEN
+            tipTitle: TIP_TITTLES.SUCCESS_REG
           });
           setTimeout(() => {handleLogin(useFormData)}, 1000)
         }
@@ -212,7 +212,7 @@ function App() {
       setIsEditPopupOpen(false);
       handleSignSubmitPopup({
         icon: okIcon, 
-        tipTitle: TIP_TITTLES.ERROR_GEN
+        tipTitle: TIP_TITTLES.SUCCESS_UPD
       });
     })
     .catch((err) => {

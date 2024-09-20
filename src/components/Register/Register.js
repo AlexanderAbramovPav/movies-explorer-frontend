@@ -60,9 +60,9 @@ function Register(props) {
       e.preventDefault()
       props.onRegister(useFormData);
       useFormData.setValues({
-        name:'',
-        email: '',
-        password: ''
+        name: null,
+        email: null,
+        password: null
       })
     }
 
