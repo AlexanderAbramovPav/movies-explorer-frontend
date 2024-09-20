@@ -12,9 +12,9 @@ function AboutMe() {
                 <img className='about-me__avatar' src={Avatar} alt='Author'/>
                 <div className='about-me__desc-container'>
                     <h2 className='about-me__name'>Alexander Abramov</h2>
-                    <h3 className='about-me__desc-short'>Frontend developer, IT Product owner</h3>
+                    <h3 className='about-me__desc-short'>Frontend developer</h3>
                     <DescText text={`
-                    👨‍💻 I'm a Frontend developer with 1 year of commercial experience and an IT Product Owner with more than 4 years of experience in online business
+                    👨‍💻 I have 7+ years in Web-development world (as a Frontend developer and as an IT Product Owner)
 
                     ⭐ I'm very passionate to build customer focused products, especially acting as a Frontend developer
 

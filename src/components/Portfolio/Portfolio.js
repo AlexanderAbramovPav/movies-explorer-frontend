@@ -5,7 +5,7 @@ function Portfolio() {
 
     return (
         <section className='portfolio'>            
-            <h2 className='portfolio__title'>Portflio of pet-projects</h2>
+            <h2 className='portfolio__title'>Portflio of few pet-projects</h2>
             <ul className='portfolio__site-list'>
                 <li className='portfolio__site-item'>
                     <a className='portfolio__site-link' href='https://github.com/AlexanderAbramovPav/react-mesto-api-full' target="_blank" rel='noreferrer'>
