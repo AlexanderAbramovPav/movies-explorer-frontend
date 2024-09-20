@@ -18,7 +18,7 @@ In the process of creating the project, the following approaches and technologie
 * Working with Figma (pixel-perfect layout)
 
 ## Link to the full project in production:
-[https://lovemovies.nomoredomains.sbs/](https://movies-explorer-frontend-two-vert.vercel.app)
+[https://movies-explorer-frontend-two-vert.vercel.app](https://movies-explorer-frontend-two-vert.vercel.app)
 
 ## Further steps:
 * Add movie description on click
